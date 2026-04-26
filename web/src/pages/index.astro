@@ -1,13 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import { readdir, readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
-const __dir = dirname(fileURLToPath(import.meta.url));
-const reportsDir = resolve(__dir, '../../../../reports');
-
-// Load all reports and extract metadata
+const reportsDir = resolve(process.cwd(), '../reports');
 const files = (await readdir(reportsDir))
   .filter(f => f.endsWith('.md') && f !== '.gitkeep')
   .sort()

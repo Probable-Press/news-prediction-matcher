@@ -1,31 +1,22 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { readdir, readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 
-const __dir = dirname(fileURLToPath(import.meta.url));
-const reportsDir = resolve(__dir, '../../../../../reports');
-
 export async function getStaticPaths() {
-  const files = (await readdir(reportsDir))
-    .filter(f => f.endsWith('.md') && f !== '.gitkeep');
-  return files.map(f => ({ params: { slug: f.replace('.md', '') } }));
+  const { readdir, readFile } = await import('node:fs/promises');
+  const { resolve } = await import('node:path');
+  const dir = resolve(process.cwd(), '../reports');
+  const files = (await readdir(dir)).filter(f => f.endsWith('.md') && f !== '.gitkeep');
+  return Promise.all(files.map(async (f) => {
+    const slug = f.replace('.md', '');
+    const raw = await readFile(resolve(dir, f), 'utf-8');
+    return { params: { slug }, props: { raw } };
+  }));
 }
 
+const { raw } = Astro.props;
 const { slug } = Astro.params;
-const raw = await readFile(resolve(reportsDir, `${slug}.md`), 'utf-8');
-
-// Split flagged section from rest for custom styling
-const flaggedMatch = raw.match(/(## 🚩 Flagged Gaps[\s\S]*?)(## All Items|## Sources|$)/);
-const flaggedSection = flaggedMatch ? flaggedMatch[1] : '';
-const restSection = raw.replace(/^[\s\S]*?## 🚩 Flagged Gaps/, '').replace(flaggedSection.replace(/^## 🚩 Flagged Gaps/, ''), '');
-
-// Render full content
-const htmlFull = await marked.parse(raw, { gfm: true });
-
-// Extract title and meta from markdown
+const html = await marked.parse(raw, { gfm: true });
 const titleMatch = raw.match(/^#\s+(.+)/m);
 const metaMatch = raw.match(/_Generated:\s*(.+?)_/);
 const title = titleMatch ? titleMatch[1] : slug;
@@ -38,6 +29,6 @@ const meta = metaMatch ? metaMatch[1] : '';
       <h1>{title}</h1>
       {meta && <p class="report-meta">{meta}</p>}
     </div>
-    <div class="report-body" set:html={htmlFull} />
+    <div class="report-body" set:html={html} />
   </div>
 </Base>
