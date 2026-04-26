@@ -1,8 +1,10 @@
-"""NHK RSS → Polymarket keyword extraction + market search (prototype).
+"""NHK RSS → Polymarket gap-analysis pipeline (prototype).
 
-Fetches recent NHK headlines from the 主要 / 国際 / 経済 feeds, asks Claude
-to translate each headline into 3 short English keywords, and then searches
-Polymarket for prediction markets matching those keywords.
+For each NHK headline:
+  1. Use Claude to extract 3 English search keywords.
+  2. Search Polymarket for active markets matching those keywords.
+  3. Ask Claude to compare the news tone against each market's current
+     YES probability and flag mispricings.
 
 Run: python src/main.py
 """
@@ -18,7 +20,11 @@ import feedparser
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
-from polymarket import search_markets
+from gap_analysis import GapResult, analyze_gap
+from polymarket import Market, search_markets
+
+GAP_FLAG_THRESHOLD = 0.10  # |implied - market| ≥ 10pp → flag as a notable gap
+ANALYZE_TOP_N_MARKETS = 2  # gap-analyze the top N highest-volume markets per news item
 
 NHK_FEEDS: dict[str, str] = {
     "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -122,27 +128,63 @@ def main() -> int:
             print()
             continue
 
-        seen_slugs: set[str] = set()
-        for kw in keywords:
+        markets = collect_markets(keywords)
+        if not markets:
+            print("  no active markets matched any keyword")
+            print()
+            continue
+
+        for m in markets[:ANALYZE_TOP_N_MARKETS]:
             try:
-                markets = search_markets(kw, limit=3)
+                result = analyze_gap(
+                    client,
+                    category=item.category,
+                    title=item.title,
+                    summary=item.summary,
+                    market=m,
+                )
             except Exception as exc:  # noqa: BLE001
-                print(f"  [{kw}] ERROR: {exc}")
+                print(f"  ERROR (gap analysis): {exc}")
                 continue
-            if not markets:
-                print(f"  [{kw}] no active markets")
+            if result is None:
                 continue
-            for m in markets:
-                if m.event_slug in seen_slugs:
-                    continue
-                seen_slugs.add(m.event_slug)
-                price_str = f"{m.yes_price * 100:.0f}%" if m.yes_price is not None else "—"
-                vol_str = f"${m.volume:,.0f}" if m.volume is not None else "—"
-                print(f"  [{kw}] {price_str} vol={vol_str} — {m.question}")
-                print(f"          {m.url}")
+            print_gap_result(result)
         print()
 
     return 0
+
+
+def collect_markets(keywords: list[str]) -> list[Market]:
+    """Search each keyword and return deduplicated markets sorted by volume."""
+    seen_slugs: set[str] = set()
+    found: list[Market] = []
+    for kw in keywords:
+        try:
+            results = search_markets(kw, limit=3)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  [{kw}] ERROR: {exc}")
+            continue
+        for m in results:
+            if m.event_slug in seen_slugs:
+                continue
+            seen_slugs.add(m.event_slug)
+            found.append(m)
+    found.sort(key=lambda m: m.volume or 0.0, reverse=True)
+    return found
+
+
+def print_gap_result(result: GapResult) -> None:
+    j = result.judgement
+    market_pct = result.market_yes_price * 100
+    implied_pct = j.implied_yes_probability * 100
+    gap_pp = result.gap * 100
+    flag = " 🚩" if result.abs_gap >= GAP_FLAG_THRESHOLD and j.direction != "no_clear_signal" else ""
+    vol_str = f"${result.market.volume:,.0f}" if result.market.volume is not None else "—"
+    print(f"  → {result.market.question}")
+    print(f"     market: {market_pct:.0f}% | implied: {implied_pct:.0f}% | gap: {gap_pp:+.0f}pp"
+          f" | {j.direction} ({j.confidence}) vol={vol_str}{flag}")
+    print(f"     {j.reasoning}")
+    print(f"     {result.market.url}")
 
 
 if __name__ == "__main__":
