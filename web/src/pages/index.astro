@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { readdir, readFile } from 'node:fs/promises';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dir = dirname(fileURLToPath(import.meta.url));
+const reportsDir = resolve(__dir, '../../../../reports');
+
+// Load all reports and extract metadata
+const files = (await readdir(reportsDir))
+  .filter(f => f.endsWith('.md') && f !== '.gitkeep')
+  .sort()
+  .reverse();
+
+interface ReportMeta {
+  slug: string;
+  date: string;
+  flagCount: number;
+  marketCount: number;
+}
+
+async function extractMeta(filename: string): Promise<ReportMeta> {
+  const slug = filename.replace('.md', '');
+  const content = await readFile(resolve(reportsDir, filename), 'utf-8');
+  const flagMatch = content.match(/Flagged gaps.*?:\s*\*\*(\d+)\*\*/);
+  const marketMatch = content.match(/Markets analyzed.*?:\s*\*\*(\d+)\*\*/);
+  return {
+    slug,
+    date: slug,
+    flagCount: flagMatch ? parseInt(flagMatch[1]) : 0,
+    marketCount: marketMatch ? parseInt(marketMatch[1]) : 0,
+  };
+}
+
+const reports = await Promise.all(files.map(extractMeta));
+---
+<Base title="最新レポート">
+  <div class="container">
+    <h1 style="font-size:1.3rem; margin-bottom:0.25rem;">NHK × Polymarket ギャップ分析</h1>
+    <p style="color:var(--muted); font-size:0.875rem;">予測市場が示す確率とNHKニュースを比較し、ミスプライシングを検出します。</p>
+
+    <div class="report-grid">
+      {reports.map(r => (
+        <a href={`/reports/${r.slug}`} class="report-card">
+          <div>
+            <div class="title">{r.date} のギャップ分析</div>
+            <div class="meta">{r.marketCount} markets analyzed</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+            <span class="date">{r.date}</span>
+            {r.flagCount > 0 && (
+              <span class="flag-count">🚩 {r.flagCount} flagged</span>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

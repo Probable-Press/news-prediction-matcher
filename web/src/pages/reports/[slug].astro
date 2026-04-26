@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import { readdir, readFile } from 'node:fs/promises';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { marked } from 'marked';
+
+const __dir = dirname(fileURLToPath(import.meta.url));
+const reportsDir = resolve(__dir, '../../../../../reports');
+
+export async function getStaticPaths() {
+  const files = (await readdir(reportsDir))
+    .filter(f => f.endsWith('.md') && f !== '.gitkeep');
+  return files.map(f => ({ params: { slug: f.replace('.md', '') } }));
+}
+
+const { slug } = Astro.params;
+const raw = await readFile(resolve(reportsDir, `${slug}.md`), 'utf-8');
+
+// Split flagged section from rest for custom styling
+const flaggedMatch = raw.match(/(## 🚩 Flagged Gaps[\s\S]*?)(## All Items|## Sources|$)/);
+const flaggedSection = flaggedMatch ? flaggedMatch[1] : '';
+const restSection = raw.replace(/^[\s\S]*?## 🚩 Flagged Gaps/, '').replace(flaggedSection.replace(/^## 🚩 Flagged Gaps/, ''), '');
+
+// Render full content
+const htmlFull = await marked.parse(raw, { gfm: true });
+
+// Extract title and meta from markdown
+const titleMatch = raw.match(/^#\s+(.+)/m);
+const metaMatch = raw.match(/_Generated:\s*(.+?)_/);
+const title = titleMatch ? titleMatch[1] : slug;
+const meta = metaMatch ? metaMatch[1] : '';
+---
+<Base title={slug} description={`${slug}のNHK×Polymarketギャップ分析レポート`}>
+  <div class="container">
+    <a href="/" class="back-link">← 一覧に戻る</a>
+    <div class="report-header">
+      <h1>{title}</h1>
+      {meta && <p class="report-meta">{meta}</p>}
+    </div>
+    <div class="report-body" set:html={htmlFull} />
+  </div>
+</Base>

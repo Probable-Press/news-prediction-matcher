@@ -1,0 +1,146 @@
+:root {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --text: #1c1917;
+  --muted: #78716c;
+  --border: #e7e5e4;
+  --accent: #b91c1c;
+  --green: #15803d;
+  --red: #b91c1c;
+  --orange: #b45309;
+  --radius: 6px;
+  --font: 'Helvetica Neue', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Layout */
+.site-header {
+  background: var(--text);
+  color: white;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.site-header .brand { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.05em; }
+.site-header .tagline { font-size: 0.75rem; color: #a8a29e; }
+
+.container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+/* Report list */
+.report-grid { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+
+.report-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: border-color 0.15s;
+}
+.report-card:hover { border-color: var(--text); }
+.report-card .date { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.report-card .title { font-weight: 600; margin-bottom: 0.25rem; }
+.report-card .meta { font-size: 0.82rem; color: var(--muted); }
+.flag-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  background: #fef2f2;
+  color: var(--red);
+  border: 1px solid #fecaca;
+  border-radius: 99px;
+  padding: 0.15em 0.65em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Report detail */
+.report-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--text); }
+.report-header h1 { font-size: 1.4rem; line-height: 1.4; }
+.report-header .report-meta { font-size: 0.82rem; color: var(--muted); margin-top: 0.5rem; }
+
+.report-body h2 {
+  font-size: 1.1rem;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.report-body h3 { font-size: 0.95rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+.report-body p { margin-bottom: 0.75rem; }
+.report-body ul, .report-body ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.report-body li { margin-bottom: 0.3rem; }
+
+/* Tables */
+.report-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  display: block;
+}
+.report-body th {
+  background: var(--text);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+.report-body td { padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--border); }
+.report-body tr:hover td { background: #f5f5f4; }
+
+/* Flag section */
+.flagged-section {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+.flagged-section h2 {
+  border-bottom: 1px solid #fed7aa !important;
+  color: var(--orange);
+}
+
+/* Gap badge */
+.gap-badge {
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.gap-badge.under { background: #dcfce7; color: var(--green); }
+.gap-badge.over  { background: #fee2e2; color: var(--red); }
+
+code { background: #f5f5f4; padding: 0.1em 0.4em; border-radius: 3px; font-size: 0.88em; }
+pre { background: #1c1917; color: #e7e5e4; padding: 1rem; border-radius: var(--radius); overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; font-size: 0.85em; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+.back-link { font-size: 0.85rem; color: var(--muted); display: inline-block; margin-bottom: 1.5rem; }
+.back-link:hover { color: var(--text); }
+
+footer { text-align: center; font-size: 0.78rem; color: var(--muted); padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }

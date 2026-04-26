@@ -1,0 +1,14 @@
+{
+  "name": "probable-press-web",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.0.0",
+    "astro": "^5.0.0",
+    "marked": "^12.0.0"
+  }
+}
