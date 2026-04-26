@@ -5,6 +5,7 @@ For each NHK headline:
   2. Search Polymarket for active markets matching those keywords.
   3. Ask Claude to compare the news tone against each market's current
      YES probability and flag mispricings.
+  4. Write a Markdown report to reports/YYYY-MM-DD.md.
 
 Run: python src/main.py
 """
@@ -14,6 +15,7 @@ from __future__ import annotations
 import os
 import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 import anthropic
 import feedparser
@@ -22,9 +24,11 @@ from pydantic import BaseModel, Field
 
 from gap_analysis import GapResult, analyze_gap
 from polymarket import Market, search_markets
+from report import NewsAnalysis, now_utc, render_report, write_report
 
 GAP_FLAG_THRESHOLD = 0.10  # |implied - market| ≥ 10pp → flag as a notable gap
 ANALYZE_TOP_N_MARKETS = 2  # gap-analyze the top N highest-volume markets per news item
+REPORTS_DIR = Path(__file__).resolve().parent.parent / "reports"
 
 NHK_FEEDS: dict[str, str] = {
     "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -116,6 +120,7 @@ def main() -> int:
     items = fetch_nhk_news(limit_per_category=3)
     print(f"Fetched {len(items)} items across {len(NHK_FEEDS)} categories.\n")
 
+    analyses: list[NewsAnalysis] = []
     for item in items:
         print(f"[{item.category}] {item.title}")
         if item.link:
@@ -126,30 +131,44 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001 — prototype: print and keep going
             print(f"  ERROR (keywords): {exc}")
             print()
+            analyses.append(NewsAnalysis(
+                category=item.category, title=item.title, link=item.link,
+                keywords=[], results=[],
+            ))
             continue
 
         markets = collect_markets(keywords)
+        results: list[GapResult] = []
         if not markets:
             print("  no active markets matched any keyword")
-            print()
-            continue
-
-        for m in markets[:ANALYZE_TOP_N_MARKETS]:
-            try:
-                result = analyze_gap(
-                    client,
-                    category=item.category,
-                    title=item.title,
-                    summary=item.summary,
-                    market=m,
-                )
-            except Exception as exc:  # noqa: BLE001
-                print(f"  ERROR (gap analysis): {exc}")
-                continue
-            if result is None:
-                continue
-            print_gap_result(result)
+        else:
+            for m in markets[:ANALYZE_TOP_N_MARKETS]:
+                try:
+                    result = analyze_gap(
+                        client,
+                        category=item.category,
+                        title=item.title,
+                        summary=item.summary,
+                        market=m,
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    print(f"  ERROR (gap analysis): {exc}")
+                    continue
+                if result is None:
+                    continue
+                results.append(result)
+                print_gap_result(result)
         print()
+
+        analyses.append(NewsAnalysis(
+            category=item.category, title=item.title, link=item.link,
+            keywords=keywords, results=results,
+        ))
+
+    generated_at = now_utc()
+    report_md = render_report(analyses, generated_at=generated_at, flag_threshold=GAP_FLAG_THRESHOLD)
+    report_path = write_report(report_md, reports_dir=REPORTS_DIR, generated_at=generated_at)
+    print(f"Report written: {report_path}")
 
     return 0
 
