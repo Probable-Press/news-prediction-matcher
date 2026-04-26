@@ -1,17 +1,14 @@
-"""NHK RSS フェッチャー。
+"""NHK RSS フェッチャー。標準ライブラリのみ使用。
 
-JSON で標準出力に書き出す。Claude Code がこれを読んでキーワード抽出・ギャップ分析を行う。
-
-Usage:
-    python src/main.py [limit]   # limit = カテゴリあたり件数 (デフォルト 5)
+Usage: python src/main.py [limit]   # limit = カテゴリあたり件数 (デフォルト 5)
 """
 
 from __future__ import annotations
 
 import json
 import sys
-
-import feedparser
+import urllib.request
+import xml.etree.ElementTree as ET
 
 NHK_FEEDS: dict[str, str] = {
     "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -20,20 +17,28 @@ NHK_FEEDS: dict[str, str] = {
 }
 
 
+def _text(el, tag: str) -> str:
+    child = el.find(tag)
+    return (child.text or "").strip() if child is not None else ""
+
+
 def fetch(limit: int = 5) -> list[dict]:
     items: list[dict] = []
     for category, url in NHK_FEEDS.items():
-        feed = feedparser.parse(url)
-        if feed.bozo and not feed.entries:
-            print(f"WARN: {category} ({url}) failed", file=sys.stderr)
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                root = ET.fromstring(resp.read())
+        except Exception as exc:
+            print(f"WARN: {category} ({url}): {exc}", file=sys.stderr)
             continue
-        for entry in feed.entries[:limit]:
+        for entry in root.findall(".//item")[:limit]:
             items.append({
                 "category": category,
-                "title": (entry.get("title") or "").strip(),
-                "summary": (entry.get("summary") or "").strip(),
-                "link": entry.get("link", ""),
-                "published": entry.get("published", ""),
+                "title": _text(entry, "title"),
+                "summary": _text(entry, "description"),
+                "link": _text(entry, "link"),
+                "published": _text(entry, "pubDate"),
             })
     return items
 
