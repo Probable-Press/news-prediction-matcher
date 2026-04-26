@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.python-version
+
+# Cached data (keep directory, ignore contents)
+data/*.json
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
