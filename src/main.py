@@ -1,34 +1,17 @@
-"""NHK RSS → Polymarket gap-analysis pipeline (prototype).
+"""NHK RSS フェッチャー。
 
-For each NHK headline:
-  1. Use Claude to extract 3 English search keywords.
-  2. Search Polymarket for active markets matching those keywords.
-  3. Ask Claude to compare the news tone against each market's current
-     YES probability and flag mispricings.
-  4. Write a Markdown report to reports/YYYY-MM-DD.md.
+JSON で標準出力に書き出す。Claude Code がこれを読んでキーワード抽出・ギャップ分析を行う。
 
-Run: python src/main.py
+Usage:
+    python src/main.py [limit]   # limit = カテゴリあたり件数 (デフォルト 5)
 """
 
 from __future__ import annotations
 
-import os
+import json
 import sys
-from dataclasses import dataclass
-from pathlib import Path
 
-import anthropic
 import feedparser
-from dotenv import load_dotenv
-from pydantic import BaseModel, Field
-
-from gap_analysis import GapResult, analyze_gap
-from polymarket import Market, search_markets
-from report import NewsAnalysis, now_utc, render_report, write_report
-
-GAP_FLAG_THRESHOLD = 0.10  # |implied - market| ≥ 10pp → flag as a notable gap
-ANALYZE_TOP_N_MARKETS = 2  # gap-analyze the top N highest-volume markets per news item
-REPORTS_DIR = Path(__file__).resolve().parent.parent / "reports"
 
 NHK_FEEDS: dict[str, str] = {
     "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -36,175 +19,30 @@ NHK_FEEDS: dict[str, str] = {
     "経済": "https://www3.nhk.or.jp/rss/news/cat5.xml",
 }
 
-MODEL = "claude-opus-4-7"
 
-KEYWORD_SYSTEM_PROMPT = """You translate Japanese news topics into short English search queries for Polymarket, a prediction market.
-
-Given a Japanese news headline and summary, output exactly 3 English keyword phrases that would surface the most relevant Polymarket markets.
-
-Rules:
-- Each phrase: 1-4 words, lowercase English
-- Focus on the entities and outcomes a market would bet on (people, countries, companies, elections, prices, conflicts, deals)
-- Prefer concrete, searchable terms — e.g. "trump election", "japan interest rate", "boj rate hike", "russia ukraine ceasefire"
-- Avoid generic words like "news", "report", "statement", "announcement"
-- If the story is purely domestic Japanese with no obvious market angle, still produce 3 plausible English search phrases (translate proper nouns, name the policy area)
-"""
-
-
-class Keywords(BaseModel):
-    """Three English Polymarket search phrases for a news item."""
-
-    keywords: list[str] = Field(..., min_length=3, max_length=3)
-
-
-@dataclass
-class NewsItem:
-    category: str
-    title: str
-    summary: str
-    link: str
-    published: str
-
-
-def fetch_nhk_news(limit_per_category: int = 5) -> list[NewsItem]:
-    items: list[NewsItem] = []
+def fetch(limit: int = 5) -> list[dict]:
+    items: list[dict] = []
     for category, url in NHK_FEEDS.items():
         feed = feedparser.parse(url)
         if feed.bozo and not feed.entries:
-            print(f"WARN: failed to parse feed for {category} ({url})", file=sys.stderr)
+            print(f"WARN: {category} ({url}) failed", file=sys.stderr)
             continue
-        for entry in feed.entries[:limit_per_category]:
-            items.append(
-                NewsItem(
-                    category=category,
-                    title=(entry.get("title") or "").strip(),
-                    summary=(entry.get("summary") or "").strip(),
-                    link=entry.get("link", ""),
-                    published=entry.get("published", ""),
-                )
-            )
+        for entry in feed.entries[:limit]:
+            items.append({
+                "category": category,
+                "title": (entry.get("title") or "").strip(),
+                "summary": (entry.get("summary") or "").strip(),
+                "link": entry.get("link", ""),
+                "published": entry.get("published", ""),
+            })
     return items
 
 
-def extract_keywords(client: anthropic.Anthropic, item: NewsItem) -> list[str]:
-    user_prompt = (
-        f"カテゴリ: {item.category}\n"
-        f"見出し: {item.title}\n"
-        f"概要: {item.summary or '(概要なし)'}"
-    )
-    response = client.messages.parse(
-        model=MODEL,
-        max_tokens=512,
-        system=KEYWORD_SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_prompt}],
-        output_format=Keywords,
-    )
-    parsed = response.parsed_output
-    if parsed is None:
-        raise RuntimeError(f"Claude refused or returned unparseable output: stop_reason={response.stop_reason}")
-    return parsed.keywords
-
-
-def main() -> int:
-    load_dotenv()
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        print(
-            "ERROR: ANTHROPIC_API_KEY is not set. Copy .env.example to .env and fill it in.",
-            file=sys.stderr,
-        )
-        return 1
-
-    client = anthropic.Anthropic()
-
-    print("Fetching NHK RSS feeds...")
-    items = fetch_nhk_news(limit_per_category=3)
-    print(f"Fetched {len(items)} items across {len(NHK_FEEDS)} categories.\n")
-
-    analyses: list[NewsAnalysis] = []
-    for item in items:
-        print(f"[{item.category}] {item.title}")
-        if item.link:
-            print(f"  link: {item.link}")
-        try:
-            keywords = extract_keywords(client, item)
-            print(f"  keywords: {', '.join(keywords)}")
-        except Exception as exc:  # noqa: BLE001 — prototype: print and keep going
-            print(f"  ERROR (keywords): {exc}")
-            print()
-            analyses.append(NewsAnalysis(
-                category=item.category, title=item.title, link=item.link,
-                keywords=[], results=[],
-            ))
-            continue
-
-        markets = collect_markets(keywords)
-        results: list[GapResult] = []
-        if not markets:
-            print("  no active markets matched any keyword")
-        else:
-            for m in markets[:ANALYZE_TOP_N_MARKETS]:
-                try:
-                    result = analyze_gap(
-                        client,
-                        category=item.category,
-                        title=item.title,
-                        summary=item.summary,
-                        market=m,
-                    )
-                except Exception as exc:  # noqa: BLE001
-                    print(f"  ERROR (gap analysis): {exc}")
-                    continue
-                if result is None:
-                    continue
-                results.append(result)
-                print_gap_result(result)
-        print()
-
-        analyses.append(NewsAnalysis(
-            category=item.category, title=item.title, link=item.link,
-            keywords=keywords, results=results,
-        ))
-
-    generated_at = now_utc()
-    report_md = render_report(analyses, generated_at=generated_at, flag_threshold=GAP_FLAG_THRESHOLD)
-    report_path = write_report(report_md, reports_dir=REPORTS_DIR, generated_at=generated_at)
-    print(f"Report written: {report_path}")
-
-    return 0
-
-
-def collect_markets(keywords: list[str]) -> list[Market]:
-    """Search each keyword and return deduplicated markets sorted by volume."""
-    seen_slugs: set[str] = set()
-    found: list[Market] = []
-    for kw in keywords:
-        try:
-            results = search_markets(kw, limit=3)
-        except Exception as exc:  # noqa: BLE001
-            print(f"  [{kw}] ERROR: {exc}")
-            continue
-        for m in results:
-            if m.event_slug in seen_slugs:
-                continue
-            seen_slugs.add(m.event_slug)
-            found.append(m)
-    found.sort(key=lambda m: m.volume or 0.0, reverse=True)
-    return found
-
-
-def print_gap_result(result: GapResult) -> None:
-    j = result.judgement
-    market_pct = result.market_yes_price * 100
-    implied_pct = j.implied_yes_probability * 100
-    gap_pp = result.gap * 100
-    flag = " 🚩" if result.abs_gap >= GAP_FLAG_THRESHOLD and j.direction != "no_clear_signal" else ""
-    vol_str = f"${result.market.volume:,.0f}" if result.market.volume is not None else "—"
-    print(f"  → {result.market.question}")
-    print(f"     market: {market_pct:.0f}% | implied: {implied_pct:.0f}% | gap: {gap_pp:+.0f}pp"
-          f" | {j.direction} ({j.confidence}) vol={vol_str}{flag}")
-    print(f"     {j.reasoning}")
-    print(f"     {result.market.url}")
+def main() -> None:
+    limit = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+    json.dump(fetch(limit), sys.stdout, ensure_ascii=False, indent=2)
+    print()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

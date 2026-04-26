@@ -1,131 +1,100 @@
-"""Polymarket Gamma API client.
+"""Polymarket Gamma API 検索。
 
-Looks up active markets on Polymarket using the public search endpoint.
-Used to find prediction markets relevant to a news headline's keywords.
+JSON で標準出力に書き出す。Claude Code が各キーワードごとに呼び出す。
+
+Usage:
+    python src/polymarket.py "trump ukraine" ["japan rate"] ...
 """
 
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
-from typing import Any
+import sys
 
 import requests
 
 GAMMA_API_BASE = "https://gamma-api.polymarket.com"
 SEARCH_PATH = "/public-search"
-DEFAULT_TIMEOUT = 15
-POLYMARKET_EVENT_URL = "https://polymarket.com/event/{slug}"
+DEFAULT_LIMIT = 5
+TIMEOUT = 15
 
 
-@dataclass
-class Market:
-    """A Polymarket market with its current YES probability."""
-
-    question: str
-    event_title: str
-    event_slug: str
-    yes_price: float | None
-    volume: float | None
-    end_date: str | None
-    active: bool
-    closed: bool
-
-    @property
-    def url(self) -> str:
-        return POLYMARKET_EVENT_URL.format(slug=self.event_slug)
-
-
-def _coerce_float(value: Any) -> float | None:
-    if value is None:
-        return None
+def _coerce_float(v) -> float | None:
     try:
-        return float(value)
+        return float(v) if v is not None else None
     except (TypeError, ValueError):
         return None
 
 
-def _parse_outcome_prices(raw: Any) -> list[float]:
-    """outcomePrices is sometimes a JSON-encoded string, sometimes a list."""
-    if raw is None:
-        return []
+def _parse_list(raw) -> list:
+    if isinstance(raw, list):
+        return raw
     if isinstance(raw, str):
         try:
-            raw = json.loads(raw)
+            return json.loads(raw)
         except json.JSONDecodeError:
             return []
-    if isinstance(raw, list):
-        out: list[float] = []
-        for v in raw:
-            f = _coerce_float(v)
-            if f is not None:
-                out.append(f)
-        return out
     return []
 
 
-def _parse_outcomes(raw: Any) -> list[str]:
-    if raw is None:
-        return []
-    if isinstance(raw, str):
-        try:
-            raw = json.loads(raw)
-        except json.JSONDecodeError:
-            return []
-    if isinstance(raw, list):
-        return [str(v) for v in raw]
-    return []
-
-
-def _yes_price(market: dict[str, Any]) -> float | None:
-    """Extract the YES-side probability (0..1) from a market dict."""
+def _yes_price(market: dict) -> float | None:
     last = _coerce_float(market.get("lastTradePrice"))
     if last is not None:
         return last
-    outcomes = _parse_outcomes(market.get("outcomes"))
-    prices = _parse_outcome_prices(market.get("outcomePrices"))
+    outcomes = [str(o).strip().lower() for o in _parse_list(market.get("outcomes"))]
+    prices = [_coerce_float(p) for p in _parse_list(market.get("outcomePrices"))]
     if not prices:
         return None
     for label, price in zip(outcomes, prices):
-        if label.strip().lower() == "yes":
+        if label == "yes" and price is not None:
             return price
-    return prices[0]
+    return prices[0] if prices[0] is not None else None
 
 
-def _build_market(event: dict[str, Any], market: dict[str, Any]) -> Market:
-    volume = _coerce_float(market.get("volumeNum")) or _coerce_float(market.get("volume"))
-    return Market(
-        question=str(market.get("question") or event.get("title") or "").strip(),
-        event_title=str(event.get("title") or "").strip(),
-        event_slug=str(event.get("slug") or "").strip(),
-        yes_price=_yes_price(market),
-        volume=volume,
-        end_date=market.get("endDate") or event.get("endDate"),
-        active=bool(market.get("active", event.get("active", False))),
-        closed=bool(market.get("closed", event.get("closed", False))),
-    )
-
-
-def search_markets(query: str, limit: int = 5, *, only_active: bool = True) -> list[Market]:
-    """Search Polymarket for markets matching a keyword.
-
-    Returns up to `limit` markets, sorted by descending volume.
-    """
-    response = requests.get(
+def search(query: str, limit: int = DEFAULT_LIMIT, only_active: bool = True) -> list[dict]:
+    resp = requests.get(
         f"{GAMMA_API_BASE}{SEARCH_PATH}",
         params={"q": query, "limit_per_type": limit},
-        timeout=DEFAULT_TIMEOUT,
+        timeout=TIMEOUT,
     )
-    response.raise_for_status()
-    data = response.json()
-
-    markets: list[Market] = []
-    for event in data.get("events", []) or []:
-        for raw_market in event.get("markets", []) or []:
-            m = _build_market(event, raw_market)
-            if only_active and (m.closed or not m.active):
+    resp.raise_for_status()
+    markets: list[dict] = []
+    for event in resp.json().get("events", []) or []:
+        for m in event.get("markets", []) or []:
+            active = bool(m.get("active", event.get("active", False)))
+            closed = bool(m.get("closed", event.get("closed", False)))
+            if only_active and (closed or not active):
                 continue
-            markets.append(m)
-
-    markets.sort(key=lambda m: m.volume or 0.0, reverse=True)
+            vol = _coerce_float(m.get("volumeNum")) or _coerce_float(m.get("volume"))
+            markets.append({
+                "question": (m.get("question") or event.get("title") or "").strip(),
+                "event_title": (event.get("title") or "").strip(),
+                "event_slug": (event.get("slug") or "").strip(),
+                "yes_price": _yes_price(m),
+                "volume": vol,
+                "end_date": m.get("endDate") or event.get("endDate"),
+                "url": f"https://polymarket.com/event/{event.get('slug', '')}",
+            })
+    markets.sort(key=lambda x: x["volume"] or 0.0, reverse=True)
     return markets[:limit]
+
+
+def main() -> None:
+    queries = sys.argv[1:]
+    if not queries:
+        print("Usage: python src/polymarket.py <query> [query2 ...]", file=sys.stderr)
+        sys.exit(1)
+
+    results: dict[str, list[dict]] = {}
+    for q in queries:
+        try:
+            results[q] = search(q)
+        except Exception as exc:
+            results[q] = [{"error": str(exc)}]
+
+    json.dump(results, sys.stdout, ensure_ascii=False, indent=2)
+    print()
+
+
+if __name__ == "__main__":
+    main()
