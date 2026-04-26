@@ -11,9 +11,10 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 NHK_FEEDS: dict[str, str] = {
-    "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
-    "国際": "https://www3.nhk.or.jp/rss/news/cat6.xml",
-    "経済": "https://www3.nhk.or.jp/rss/news/cat5.xml",
+    "主要": "https://news.web.nhk/n-data/conf/na/rss/cat0.xml",
+    "政治": "https://news.web.nhk/n-data/conf/na/rss/cat4.xml",
+    "経済": "https://news.web.nhk/n-data/conf/na/rss/cat5.xml",
+    "国際": "https://news.web.nhk/n-data/conf/na/rss/cat6.xml",
 }
 
 
