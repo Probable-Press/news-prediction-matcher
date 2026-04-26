@@ -1,9 +1,8 @@
-"""NHK RSS → Polymarket keyword extraction (prototype).
+"""NHK RSS → Polymarket keyword extraction + market search (prototype).
 
-Fetches recent NHK headlines from the 主要 / 国際 / 経済 feeds, then asks Claude
-to translate each headline into 3 short English keywords suitable for searching
-Polymarket. This is the first slice of the news ↔ prediction-market gap
-analysis pipeline.
+Fetches recent NHK headlines from the 主要 / 国際 / 経済 feeds, asks Claude
+to translate each headline into 3 short English keywords, and then searches
+Polymarket for prediction markets matching those keywords.
 
 Run: python src/main.py
 """
@@ -18,6 +17,8 @@ import anthropic
 import feedparser
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
+
+from polymarket import search_markets
 
 NHK_FEEDS: dict[str, str] = {
     "主要": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -117,7 +118,28 @@ def main() -> int:
             keywords = extract_keywords(client, item)
             print(f"  keywords: {', '.join(keywords)}")
         except Exception as exc:  # noqa: BLE001 — prototype: print and keep going
-            print(f"  ERROR: {exc}")
+            print(f"  ERROR (keywords): {exc}")
+            print()
+            continue
+
+        seen_slugs: set[str] = set()
+        for kw in keywords:
+            try:
+                markets = search_markets(kw, limit=3)
+            except Exception as exc:  # noqa: BLE001
+                print(f"  [{kw}] ERROR: {exc}")
+                continue
+            if not markets:
+                print(f"  [{kw}] no active markets")
+                continue
+            for m in markets:
+                if m.event_slug in seen_slugs:
+                    continue
+                seen_slugs.add(m.event_slug)
+                price_str = f"{m.yes_price * 100:.0f}%" if m.yes_price is not None else "—"
+                vol_str = f"${m.volume:,.0f}" if m.volume is not None else "—"
+                print(f"  [{kw}] {price_str} vol={vol_str} — {m.question}")
+                print(f"          {m.url}")
         print()
 
     return 0
