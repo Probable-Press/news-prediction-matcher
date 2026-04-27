@@ -1,38 +1,66 @@
 [
   {
     "category": "NHK主要",
-    "title": "株価 300円以上値上がり6万円台に 取り引き時間中の最高値更新",
-    "summary": "週明けの27日の東京株式市場、日経平均株価は一時、300円以上値上がりして再び6万円台をつけ、取り引き時間中の最高値を更新しました。24日のニューヨーク市場でハイテク株の比率が高いナスダックの株価指数…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015109121000",
-    "published": "Mon, 27 Apr 2026 09:15:06 +0900"
-  },
-  {
-    "category": "NHK主要",
-    "title": "【地震速報】北海道十勝南部で震度5強 津波の心配なし",
-    "summary": "27日午前5時半前、北海道の十勝地方南部で震度5強の強い揺れを観測する地震がありました。この地震による津波はありませんでした。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108931000",
-    "published": "Mon, 27 Apr 2026 09:24:32 +0900"
-  },
-  {
-    "category": "NHK主要",
-    "title": "気象庁が会見「今後1週間程度 同程度の地震に注意」",
-    "summary": "今回の地震について気象庁は記者会見を開きました。気象庁地震津波監視課の海老田綾貴課長は「揺れの強かった地域では、落石や崖崩れなどの危険性が高まっているため、今後の地震活動や雨の状況に十分注意してほしい…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015109001000",
-    "published": "Mon, 27 Apr 2026 09:23:47 +0900"
-  },
-  {
-    "category": "NHK主要",
-    "title": "岩手 大槌町の山林火災 発生6日目も延焼続く",
-    "summary": "岩手県大槌町の山林火災は、発生から27日で6日目となりますが、延焼が続いています。町内の高校のすぐ裏にある山林が燃え、近くを通る三陸自動車道の一部区間が通行止めになるなど影響が広がっていて、消防が夜を…",
+    "title": "岩手 大槌町の山林火災 発生6日目も延焼続く 鎮圧めど立たず",
+    "summary": "岩手県大槌町の山林火災は、発生から27日で6日目となりますがいまも延焼が続き、焼けたとみられる面積は27日朝の時点で1600ヘクタールあまりに拡大しています。27日からは地上部隊が山林に消火薬剤を散布…",
     "link": "https://news.web.nhk/newsweb/na/na-k10015108891000",
-    "published": "Mon, 27 Apr 2026 08:30:47 +0900"
+    "published": "Mon, 27 Apr 2026 13:16:27 +0900"
   },
   {
     "category": "NHK主要",
-    "title": "ドジャース 大谷翔平 12試合ぶり6号ソロHR 3安打1打点の活躍",
-    "summary": "大リーグ、ドジャースの大谷翔平選手がカブス戦で12試合ぶりとなる6号ホームランを打つなど3安打1打点と活躍しました。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015109061000",
-    "published": "Mon, 27 Apr 2026 09:00:11 +0900"
+    "title": "米 夕食会発砲事件 “暗殺者名乗り 政権幹部を順に標的に”",
+    "summary": "アメリカの首都ワシントンでトランプ大統領が参加する夕食会に押し入ろうと発砲した容疑者が拘束された事件で、容疑者は犯行を示唆するメモの中で、みずからを暗殺者と名乗った上で、政権幹部を順に標的にするとして…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109171000",
+    "published": "Mon, 27 Apr 2026 12:18:58 +0900"
+  },
+  {
+    "category": "NHK主要",
+    "title": "【地震情報】北海道十勝南部で震度5強 津波なし",
+    "summary": "27日午前5時23分ごろ、北海道の十勝地方南部で震度5強の強い揺れを観測する地震がありました。この地震による津波はありませんでした。",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015108931000",
+    "published": "Mon, 27 Apr 2026 11:40:48 +0900"
+  },
+  {
+    "category": "NHK主要",
+    "title": "株価 取引時間中の最高値更新 “イランが新提案”報道で",
+    "summary": "週明けの27日の東京株式市場、日経平均株価は、一時、1100円以上値上がりし、6万円を超えて取引時間中の最高値を更新しました。戦闘の終結に向けてイラン側がアメリカに対して新たな提案を示したと伝わったこ…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109121000",
+    "published": "Mon, 27 Apr 2026 13:01:10 +0900"
+  },
+  {
+    "category": "NHK主要",
+    "title": "リスキリング 学び直し充実で2030年に年間60万人に 政府目標",
+    "summary": "政府は成長分野での人材の育成と確保に向けた新たなビジョンをまとめました。大学などでリスキリング＝学び直しを行う人の数を2030年の時点で年間60万人とする目標を掲げています。",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109261000",
+    "published": "Mon, 27 Apr 2026 13:50:09 +0900"
+  },
+  {
+    "category": "NHK政治",
+    "title": "再審制度見直し 高市首相“与党で十分議論し最適な改正案を”",
+    "summary": "再審制度を見直すための刑事訴訟法の改正案について、高市総理大臣は与党内で十分な議論を行い最適なものを国会に提出したいという考えを示しました。",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109241000",
+    "published": "Mon, 27 Apr 2026 14:10:38 +0900"
+  },
+  {
+    "category": "NHK政治",
+    "title": "リスキリング 学び直し充実で2030年に年間60万人に 政府目標",
+    "summary": "政府は成長分野での人材の育成と確保に向けた新たなビジョンをまとめました。大学などでリスキリング＝学び直しを行う人の数を2030年の時点で年間60万人とする目標を掲げています。",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109261000",
+    "published": "Mon, 27 Apr 2026 13:50:09 +0900"
+  },
+  {
+    "category": "NHK政治",
+    "title": "高市首相 “補正予算案編成は現時点では必要な状況ではない”",
+    "summary": "国会は参議院予算委員会で集中審議が行われ、立憲民主党はイラン情勢の影響をめぐり事業者から支援を求める声が強まっているとして補正予算案の編成を検討するよう求めました。高市総理大臣は今年度予算の予備費も活…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109161000",
+    "published": "Mon, 27 Apr 2026 13:37:58 +0900"
+  },
+  {
+    "category": "NHK政治",
+    "title": "高市首相動静 2026年4月24日～26日",
+    "summary": "（高市首相動静 2026年4月26日）終日、公邸で過ごす",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109071000",
+    "published": "Mon, 27 Apr 2026 09:58:38 +0900"
   },
   {
     "category": "NHK政治",
@@ -42,39 +70,25 @@
     "published": "Mon, 27 Apr 2026 07:02:34 +0900"
   },
   {
-    "category": "NHK政治",
-    "title": "北海道で震度5強 政府が官邸連絡室を設置",
-    "summary": "政府は午前5時25分に総理大臣官邸の危機管理センターに官邸連絡室を設置し、情報の収集や被害の確認にあたっています。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015109011000",
-    "published": "Mon, 27 Apr 2026 05:51:28 +0900"
-  },
-  {
-    "category": "NHK政治",
-    "title": "安保3文書改定へ きょう有識者会議の初会合 提言とりまとめへ",
-    "summary": "安全保障関連の3文書の改定に向け、政府は27日、有識者会議の初会合を開きます。今後、必要な防衛力のあり方や財源などについて議論を重ね、提言をとりまとめる方針です。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108911000",
-    "published": "Mon, 27 Apr 2026 05:42:51 +0900"
-  },
-  {
-    "category": "NHK政治",
-    "title": "被災地での児童など支援充実へ “支援チーム”設置を 文科省",
-    "summary": "文部科学省は、災害時に被災地での児童や生徒への支援を充実させるため、平時から研修を受けた教職員らで構成するチームを設置しておくよう自治体に働きかけています。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108631000",
-    "published": "Sun, 26 Apr 2026 15:13:15 +0900"
-  },
-  {
-    "category": "NHK政治",
-    "title": "日韓両政府 次官級「2プラス2」来月初開催へ 安保協力強化図る",
-    "summary": "日韓両政府は外務・防衛当局の次官級による協議の枠組みを新たに設置し、来月上旬にもソウルで初会合を開く方向で調整しています。中国や北朝鮮の動きを念頭に、安全保障協力の強化を図ることにしています。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108591000",
-    "published": "Sun, 26 Apr 2026 13:05:16 +0900"
+    "category": "NHK経済",
+    "title": "JERA「電気料金 夏ごろに高騰懸念」イラン情勢受け",
+    "summary": "日本最大の発電事業者「JERA」は、イラン情勢の電気料金への影響について、火力発電の主な燃料となるLNG＝液化天然ガス価格の上昇を受けて、夏ごろに高騰する懸念があるという見方を示しました。",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109271000",
+    "published": "Mon, 27 Apr 2026 14:30:47 +0900"
   },
   {
     "category": "NHK経済",
-    "title": "株価 300円以上値上がり6万円台に 取り引き時間中の最高値更新",
-    "summary": "週明けの27日の東京株式市場、日経平均株価は一時、300円以上値上がりして再び6万円台をつけ、取り引き時間中の最高値を更新しました。24日のニューヨーク市場でハイテク株の比率が高いナスダックの株価指数…",
+    "title": "株価 取引時間中の最高値更新 “イランが新提案”報道で",
+    "summary": "週明けの27日の東京株式市場、日経平均株価は、一時、1100円以上値上がりし、6万円を超えて取引時間中の最高値を更新しました。戦闘の終結に向けてイラン側がアメリカに対して新たな提案を示したと伝わったこ…",
     "link": "https://news.web.nhk/newsweb/na/na-k10015109121000",
-    "published": "Mon, 27 Apr 2026 09:15:06 +0900"
+    "published": "Mon, 27 Apr 2026 13:01:10 +0900"
+  },
+  {
+    "category": "NHK経済",
+    "title": "きょうのおはBiz 4月27日(月) 今週 日米で金融政策決める会合",
+    "summary": "NHKニュース「おはよう日本」で平日朝に放送している経済ニュースコーナー「おはBiz」。最新のビジネストレンドや働き方、お役立ちサービスやスタートアップ企業の情報など、ギュギュっとコンパクトにお届けし…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109181000",
+    "published": "Mon, 27 Apr 2026 11:55:01 +0900"
   },
   {
     "category": "NHK経済",
@@ -91,18 +105,32 @@
     "published": "Mon, 27 Apr 2026 07:07:50 +0900"
   },
   {
-    "category": "NHK経済",
-    "title": "東電 次期会長に産業革新投資機構の横尾社長を招く方向で調整",
-    "summary": "東京電力ホールディングスは小林喜光会長が退任し、後任に官民ファンド「産業革新投資機構」の横尾敬介社長を招く方向で調整に入りました。東京電力としては、新たな会長のもと、抜本的な経営改善につながる他社との…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108381000",
-    "published": "Sat, 25 Apr 2026 21:03:56 +0900"
+    "category": "NHK国際",
+    "title": "NPT再検討会議開幕へ 核軍縮に向け最終文書を採択できるか焦点",
+    "summary": "世界の核軍縮の方向性を議論するNPT＝核拡散防止条約の再検討会議が、このあと日本時間の27日夜遅くからニューヨークの国連本部で始まります。イラン情勢やウクライナ情勢で各国の対立が深まり、世界で核軍縮に…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015108791000",
+    "published": "Mon, 27 Apr 2026 14:47:09 +0900"
   },
   {
-    "category": "NHK経済",
-    "title": "デンソー ロームへの買収提案 取り下げる方針固める",
-    "summary": "トヨタグループの大手自動車部品メーカー、デンソーが、半導体大手のロームに対する買収の提案を取り下げる方針を固めたことがわかりました。一方、ロームは、東芝、三菱電機の3社で電気自動車などに使われる、パワ…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108281000",
-    "published": "Sat, 25 Apr 2026 18:19:44 +0900"
+    "category": "NHK国際",
+    "title": "アメリカは主導権を強調 イラン外相はプーチン大統領と会談へ",
+    "summary": "アメリカとイランの戦闘終結に向けた協議の先行きが見通せない中、トランプ大統領はアメリカ側が主導権を握っていると強調しました。一方、イラン側は外交を活発化させていて、27日にはアラグチ外相がロシアを訪れ…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015108941000",
+    "published": "Mon, 27 Apr 2026 14:14:54 +0900"
+  },
+  {
+    "category": "NHK国際",
+    "title": "米 夕食会発砲事件 “暗殺者名乗り 政権幹部を順に標的に”",
+    "summary": "アメリカの首都ワシントンでトランプ大統領が参加する夕食会に押し入ろうと発砲した容疑者が拘束された事件で、容疑者は犯行を示唆するメモの中で、みずからを暗殺者と名乗った上で、政権幹部を順に標的にするとして…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015109171000",
+    "published": "Mon, 27 Apr 2026 12:18:58 +0900"
+  },
+  {
+    "category": "NHK国際",
+    "title": "北朝鮮にロシア派兵記念館完成 キム総書記とロシア要人会談",
+    "summary": "北朝鮮の首都ピョンヤンに、ロシアに派遣された北朝鮮軍の兵士たちをたたえる記念館が完成し、式典が行われました。これにあわせて、現地を訪問しているロシアのボロジン下院議長がキム・ジョンウン（金正恩）総書記…",
+    "link": "https://news.web.nhk/newsweb/na/na-k10015108951000",
+    "published": "Mon, 27 Apr 2026 11:07:56 +0900"
   },
   {
     "category": "NHK国際",
@@ -112,67 +140,46 @@
     "published": "Mon, 27 Apr 2026 08:13:16 +0900"
   },
   {
-    "category": "NHK国際",
-    "title": "去年の世界の軍事費 前年比2.9％増加で最大規模を更新",
-    "summary": "去年の世界の軍事費は2兆8000億ドル余りと前の年よりも2.9％増え、最大規模を更新したことがスウェーデンの研究機関のまとめでわかりました。",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108751000",
-    "published": "Mon, 27 Apr 2026 08:05:24 +0900"
-  },
-  {
-    "category": "NHK国際",
-    "title": "ガザ地区で20年ぶり選挙 投票率は20％余 ハマスは“関与せず”",
-    "summary": "2年にわたり戦闘が続いたパレスチナのガザ地区で20年ぶりに選挙が行われ、地元の選挙管理委員会は投票率が20％余りにとどまったものの、紛争下での選挙の成功をアピールしました。一方、ガザ地区を実効支配して…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108901000",
-    "published": "Mon, 27 Apr 2026 07:28:44 +0900"
-  },
-  {
-    "category": "NHK国際",
-    "title": "北朝鮮にロシア派兵記念館完成 キム総書記とロシア要人会談",
-    "summary": "北朝鮮の首都ピョンヤンに、ロシアに派遣された北朝鮮軍の兵士たちをたたえる記念館が完成し、式典が行われました。これにあわせて、現地を訪問しているロシアのボロジン下院議長がキム・ジョンウン（金正恩）総書記…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108951000",
-    "published": "Mon, 27 Apr 2026 07:19:34 +0900"
-  },
-  {
-    "category": "NHK国際",
-    "title": "米FRB 利下げ見送りか 原油高でインフレ再加速を警戒",
-    "summary": "アメリカのFRB＝連邦準備制度理事会は、今週28日から金融政策を決める会合を開きます。イラン情勢によって原油価格が高止まりする中、インフレが再加速するリスクを踏まえ、3会合連続で利下げを見送るとの見方…",
-    "link": "https://news.web.nhk/newsweb/na/na-k10015108881000",
-    "published": "Mon, 27 Apr 2026 07:12:16 +0900"
+    "category": "Yahoo主要",
+    "title": "トヨタ25年度世界販売数 過去最高",
+    "summary": "",
+    "link": "https://news.yahoo.co.jp/pickup/6577842?source=rss",
+    "published": "Mon, 27 Apr 2026 05:15:34 GMT"
   },
   {
     "category": "Yahoo主要",
-    "title": "5強「後発地震注意」に該当せず",
+    "title": "ホンダ AI自動運転導入を延期方針",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577792?source=rss",
-    "published": "Sun, 26 Apr 2026 23:31:36 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577833?source=rss",
+    "published": "Mon, 27 Apr 2026 04:07:43 GMT"
   },
   {
     "category": "Yahoo主要",
-    "title": "日経平均 再び一時6万円台",
+    "title": "伸びが大きい「中卒」の賃金 背景",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577800?source=rss",
-    "published": "Mon, 27 Apr 2026 00:21:15 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577831?source=rss",
+    "published": "Mon, 27 Apr 2026 04:09:29 GMT"
   },
   {
     "category": "Yahoo主要",
-    "title": "イラン外相2日連続パキスタン訪問",
+    "title": "服借り気道確保 男性助けた看護師",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577788?source=rss",
-    "published": "Sun, 26 Apr 2026 23:24:20 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577839?source=rss",
+    "published": "Mon, 27 Apr 2026 04:47:24 GMT"
   },
   {
     "category": "Yahoo主要",
-    "title": "高速バスでナイフ所持疑い 男逮捕",
+    "title": "市議会ロビーに議員らパネル 物議",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577795?source=rss",
-    "published": "Sun, 26 Apr 2026 23:56:55 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577838?source=rss",
+    "published": "Mon, 27 Apr 2026 04:36:28 GMT"
   },
   {
-    "category": "Yahoo主要",
-    "title": "串カツ田中HD なぜ社名を変えた",
+    "category": "Yahoo国際",
+    "title": "米政権 イラン停戦の延期どこまで",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577798?source=rss",
-    "published": "Mon, 27 Apr 2026 00:11:43 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577819?source=rss",
+    "published": "Mon, 27 Apr 2026 04:58:10 GMT"
   },
   {
     "category": "Yahoo国際",
@@ -180,6 +187,13 @@
     "summary": "",
     "link": "https://news.yahoo.co.jp/pickup/6577788?source=rss",
     "published": "Sun, 26 Apr 2026 23:24:20 GMT"
+  },
+  {
+    "category": "Yahoo国際",
+    "title": "夕食会で発砲疑い 男は家族に手紙",
+    "summary": "",
+    "link": "https://news.yahoo.co.jp/pickup/6577828?source=rss",
+    "published": "Mon, 27 Apr 2026 03:53:43 GMT"
   },
   {
     "category": "Yahoo国際",
@@ -196,25 +210,11 @@
     "published": "Sun, 26 Apr 2026 10:36:52 GMT"
   },
   {
-    "category": "Yahoo国際",
-    "title": "発砲受け米大統領 イラン関連否定",
-    "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577722?source=rss",
-    "published": "Sun, 26 Apr 2026 07:40:09 GMT"
-  },
-  {
-    "category": "Yahoo国際",
-    "title": "アフリカ・マリで国防相殺害 報道",
-    "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577770?source=rss",
-    "published": "Sun, 26 Apr 2026 14:04:30 GMT"
-  },
-  {
     "category": "Yahoo経済",
-    "title": "日経平均 再び一時6万円台",
+    "title": "トヨタ25年度世界販売数 過去最高",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577800?source=rss",
-    "published": "Mon, 27 Apr 2026 00:21:15 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577842?source=rss",
+    "published": "Mon, 27 Apr 2026 05:15:34 GMT"
   },
   {
     "category": "Yahoo経済",
@@ -225,31 +225,31 @@
   },
   {
     "category": "Yahoo経済",
-    "title": "到着の米原油 消費1日分に満たず",
+    "title": "デンソー ローム買収撤回含め検討",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577757?source=rss",
-    "published": "Sun, 26 Apr 2026 12:20:58 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577802?source=rss",
+    "published": "Mon, 27 Apr 2026 00:43:13 GMT"
   },
   {
     "category": "Yahoo経済",
-    "title": "赤字経営の病院 クラファンに活路",
+    "title": "ホンダ AI自動運転導入を延期方針",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577761?source=rss",
-    "published": "Sun, 26 Apr 2026 12:49:17 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577833?source=rss",
+    "published": "Mon, 27 Apr 2026 04:07:43 GMT"
   },
   {
     "category": "Yahoo経済",
-    "title": "新幹線が一時見合わせ 架線に凧",
+    "title": "伸びが大きい「中卒」の賃金 背景",
     "summary": "",
-    "link": "https://news.yahoo.co.jp/pickup/6577743?source=rss",
-    "published": "Sun, 26 Apr 2026 10:29:09 GMT"
+    "link": "https://news.yahoo.co.jp/pickup/6577831?source=rss",
+    "published": "Mon, 27 Apr 2026 04:09:29 GMT"
   },
   {
     "category": "BBC World",
-    "title": "Trump and officials 'likely' targets of press dinner shooting suspect, authorities believe",
-    "summary": "The suspect is expected to be charged with assault of a federal officer and using a firearm during a crime of violence, officials have said.",
+    "title": "Trump says he 'wasn't worried' during Washington press dinner shooting",
+    "summary": "The suspect's writings said he wanted to target Trump administration officials, acting US Attorney General Todd Blanche said.",
     "link": "https://www.bbc.com/news/articles/c2d8dg57rzdo?at_medium=RSS&at_campaign=rss",
-    "published": "Mon, 27 Apr 2026 00:06:54 GMT"
+    "published": "Mon, 27 Apr 2026 04:24:19 GMT"
   },
   {
     "category": "BBC World",
@@ -281,6 +281,20 @@
   },
   {
     "category": "BBC Business",
+    "title": "'I don't want the children to see how worried we are': UK family finances hit by Iran war",
+    "summary": "British families tell BBC Panorama how the Iran war is affecting their monthly budgets.",
+    "link": "https://www.bbc.com/news/articles/ckg9q2g88nzo?at_medium=RSS&at_campaign=rss",
+    "published": "Mon, 27 Apr 2026 04:55:34 GMT"
+  },
+  {
+    "category": "BBC Business",
+    "title": "Oil prices rise as US-Iran peace talks stall",
+    "summary": "President Trump said on Saturday that the US had cancelled plans to send a team to Pakistan for negotiations.",
+    "link": "https://www.bbc.com/news/articles/c15d57pv925o?at_medium=RSS&at_campaign=rss",
+    "published": "Mon, 27 Apr 2026 01:16:50 GMT"
+  },
+  {
+    "category": "BBC Business",
     "title": "Higher prices could last for eight months after Iran war, minister says",
     "summary": "Officials are monitoring stock levels and planning for any potential disruptions to the supply chain.",
     "link": "https://www.bbc.com/news/articles/cm29m98md2do?at_medium=RSS&at_campaign=rss",
@@ -299,20 +313,6 @@
     "summary": "With the price of fuel rising China's BYD says it is positioning itself to benefit from the global shift away from fossil fuels.",
     "link": "https://www.bbc.com/news/articles/cy01ele412yo?at_medium=RSS&at_campaign=rss",
     "published": "Fri, 24 Apr 2026 21:25:16 GMT"
-  },
-  {
-    "category": "BBC Business",
-    "title": "Stock markets are too high and set to fall, says Bank of England deputy",
-    "summary": "It is unusual for a senior figure at the Bank to be so forthright on market movements.",
-    "link": "https://www.bbc.com/news/articles/c75kp1y43lgo?at_medium=RSS&at_campaign=rss",
-    "published": "Fri, 24 Apr 2026 09:03:21 GMT"
-  },
-  {
-    "category": "BBC Business",
-    "title": "US justice department drops probe into Fed chairman Jerome Powell",
-    "summary": "President Donald Trump had accused Powell of improper cost overruns in renovating the Fed's building.",
-    "link": "https://www.bbc.com/news/articles/cdxd1v0028vo?at_medium=RSS&at_campaign=rss",
-    "published": "Fri, 24 Apr 2026 19:10:25 GMT"
   },
   {
     "category": "BBC Politics",
