@@ -124,7 +124,7 @@ def git_commit_push(today: str, branch: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="End-to-end pipeline")
-    parser.add_argument("--date", default=date.today(tz=timezone.utc).isoformat(),
+    parser.add_argument("--date", default=date.today().isoformat(),
                         help="対象日 (YYYY-MM-DD)")
     parser.add_argument("--skip-trigger", action="store_true",
                         help="GitHub Actions 起動をスキップ（データ取得済みの場合）")
