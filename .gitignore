@@ -12,8 +12,6 @@ __pycache__/
 venv/
 .python-version
 
-# Cached data (keep directory, ignore contents)
-data/*.json
 
 # OS / editor
 .DS_Store
