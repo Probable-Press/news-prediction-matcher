@@ -11,11 +11,16 @@ from __future__ import annotations
 
 import json
 import sys
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 
 GAMMA_BASE = "https://gamma-api.polymarket.com"
+DATA_BASE  = "https://data-api.polymarket.com"
 TIMEOUT = 20
+HISTORY_WORKERS = 8
+HISTORY_TOP_N   = 20   # 上位N市場のみ履歴を取得
 
 
 def _coerce_float(v) -> float | None:
@@ -81,18 +86,62 @@ def _flatten(event: dict) -> list[dict]:
             continue
         vol = _coerce_float(m.get("volumeNum")) or _coerce_float(m.get("volume"))
         out.append({
-            "question":    (m.get("question") or event.get("title") or "").strip(),
-            "event_title": (event.get("title") or "").strip(),
-            "event_slug":  (event.get("slug") or "").strip(),
-            "category":    event.get("category") or "",
-            "is_sports":   _is_sports(event),
-            "yes_price":   _yes_price(m),
-            "volume":      vol,
-            "volume_24h":  _coerce_float(m.get("volume24hr")) or _coerce_float(event.get("volume24hr")),
-            "end_date":    m.get("endDate") or event.get("endDate"),
-            "url":         f"https://polymarket.com/event/{event.get('slug', '')}",
+            "question":     (m.get("question") or event.get("title") or "").strip(),
+            "event_title":  (event.get("title") or "").strip(),
+            "event_slug":   (event.get("slug") or "").strip(),
+            "category":     event.get("category") or "",
+            "is_sports":    _is_sports(event),
+            "yes_price":    _yes_price(m),
+            "volume":       vol,
+            "volume_24h":   _coerce_float(m.get("volume24hr")) or _coerce_float(event.get("volume24hr")),
+            "end_date":     m.get("endDate") or event.get("endDate"),
+            "url":          f"https://polymarket.com/event/{event.get('slug', '')}",
+            "condition_id": m.get("conditionId") or "",
+            "price_7d_ago": None,
+            "price_change_7d": None,
         })
     return out
+
+
+def _fetch_price_7d_ago(condition_id: str) -> float | None:
+    """Data API から7日前の終値を取得。失敗時は None。"""
+    if not condition_id:
+        return None
+    try:
+        end_ts   = int(time.time())
+        start_ts = end_ts - 7 * 24 * 3600
+        resp = requests.get(
+            f"{DATA_BASE}/prices",
+            params={"market": condition_id, "startTs": start_ts, "endTs": end_ts, "fidelity": 60},
+            timeout=TIMEOUT,
+        )
+        resp.raise_for_status()
+        rows = resp.json()
+        if not rows:
+            return None
+        # 最初の点（7日前に最も近い）
+        return _coerce_float(rows[0].get("p"))
+    except Exception:
+        return None
+
+
+def enrich_with_history(markets: list[dict], top_n: int = HISTORY_TOP_N) -> list[dict]:
+    """上位 top_n 市場に7日前の価格と変化量を付与する。"""
+    targets = [m for m in markets[:top_n] if m.get("condition_id") and m.get("yes_price") is not None]
+
+    def _enrich(m: dict) -> dict:
+        price_7d = _fetch_price_7d_ago(m["condition_id"])
+        if price_7d is not None and m["yes_price"] is not None:
+            m["price_7d_ago"]     = round(price_7d, 4)
+            m["price_change_7d"]  = round(m["yes_price"] - price_7d, 4)
+        return m
+
+    with ThreadPoolExecutor(max_workers=HISTORY_WORKERS) as pool:
+        futures = {pool.submit(_enrich, m): i for i, m in enumerate(targets)}
+        for future in as_completed(futures):
+            future.result()
+
+    return markets
 
 
 def fetch_top(limit: int = 50) -> list[dict]:
@@ -125,7 +174,9 @@ def fetch_top(limit: int = 50) -> list[dict]:
 
 def main() -> None:
     limit = int(sys.argv[1]) if len(sys.argv) > 1 else 50
-    json.dump(fetch_top(limit), sys.stdout, ensure_ascii=False, indent=2)
+    markets = fetch_top(limit)
+    markets = enrich_with_history(markets)
+    json.dump(markets, sys.stdout, ensure_ascii=False, indent=2)
     print()
 
 
