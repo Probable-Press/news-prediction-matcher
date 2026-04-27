@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="このサイトについて" description="Probable Pressのコンセプト ― なぜ予測市場の情報がメディアとして有用なのか">
+  <div class="container about-page">
+    <header class="about-header">
+      <h1>このサイトについて</h1>
+      <p class="lede">予測市場が示す確率と、ニュースが伝える事実。<br>その間にある「ギャップ」を、毎日分析するメディアです。</p>
+    </header>
+
+    <section>
+      <h2>1. コンセプト</h2>
+      <p>新聞・テレビ・SNSが伝える情報には、必ず誰かの<strong>解釈</strong>が混ざります。ある事件は「危機」とも「好機」とも報じられる。ある政策は「成功」とも「失敗」とも語られる。読者は無数の解釈の中から、自分なりの確率を組み立てなければなりません。</p>
+      <p>予測市場は、その確率を<strong>数字</strong>として直接示します。「トランプ大統領が再選する確率は何%か」「FRBが利下げする確率は何%か」——意見ではなく、お金が乗ったポジションの集積として。</p>
+      <p>当サイトは、ニュースが報じる新しい事実と、予測市場が示す現在の確率を毎日突き合わせ、両者が乖離している点を「<strong>ギャップ</strong>」として記録します。市場がまだ織り込んでいない情報を、記事として届けます。</p>
+    </section>
+
+    <section>
+      <h2>2. なぜ予測市場の情報が有用なのか</h2>
+      <p>核心は<strong>「お金が偏見を訂正する」</strong>という構造です。</p>
+      <p>党派的に「Aが勝ってほしい」と思う人がいても、Aが勝つ確率を実態以上に買えば損をします。だから予測市場の価格からは「願望」が剥がれ、参加者の<strong>現実認識</strong>だけが残ります。これは他の情報源にはない構造的な強みです。</p>
+
+      <table class="comparison-table">
+        <thead><tr><th>情報源</th><th>価格／結論を決めるもの</th></tr></thead>
+        <tbody>
+          <tr><td>専門家・評論家</td><td>自分の評判・所属組織・支持層へのアピール</td></tr>
+          <tr><td>世論調査</td><td>回答者の希望的観測（「投票する」と「したい」の差）</td></tr>
+          <tr><td>メディア論説</td><td>編集方針・読者層・スポンサーの構成</td></tr>
+          <tr class="highlight"><td><strong>予測市場</strong></td><td><strong>間違えれば金を失うという制約</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3>2024年米大統領選の実例</h3>
+      <p>主要世論調査は終盤までHarris優勢〜接戦を伝え続けました。一方Polymarketでは、選挙の2週間前からTrumpが60%超を提示していました。結果はTrumpの勝利です。</p>
+      <p>世論調査は<em>「誰に投票したいか」</em>を聞きます。Polymarketは<em>「自分のお金を賭けてでも、誰が勝つと思うか」</em>を聞きます。多くの局面で、後者の方が現実に近づきます。</p>
+    </section>
+
+    <section>
+      <h2>3. 集合知が機能する条件</h2>
+      <p>「お金を賭けた多くの人の知識」が信頼できる確率になるには、以下の条件が必要です。</p>
+      <ul class="conditions">
+        <li><strong>十分な参加者数</strong> ― 個人バイアスが相殺される</li>
+        <li><strong>十分な流動性</strong> ― 価格操作のコストが採算に合わなくなる</li>
+        <li><strong>多様な背景</strong> ― 同質集団のエコーチェンバーを避ける</li>
+        <li><strong>結果の客観的検証</strong> ― 報酬配分が恣意的にならない</li>
+      </ul>
+      <p>Polymarketはこの4条件を満たす数少ないプラットフォームです。特に米大統領選・FRB政策・地政学リスクなどの主要マクロ市場では、数百万ドル〜数十億ドルの出来高が日々形成されています。</p>
+      <p>ただしロングテール（薄商い）の市場では、この強みは薄れます。当サイトでは出来高情報を併記し、読者が信頼度を判断できるようにしています。</p>
+    </section>
+
+    <section>
+      <h2>4. Polymarketという情報源</h2>
+      <p>Polymarketは2020年に設立されたブロックチェーン基盤の予測市場プラットフォームです。すべての取引は公開台帳に記録され、市場操作の痕跡が後から検証可能です。2024年米大統領選では総出来高37億ドル超を記録し、Bloomberg、Financial Times、New York Times などの主要メディアが価格動向を引用するようになっています。</p>
+      <p>当サイトはPolymarketと無関係な独立メディアです。価格情報はPolymarketの公開API（Gamma API）から直接取得しており、編集介入はありません。</p>
+    </section>
+
+    <section>
+      <h2>5. 当サイトの方法論</h2>
+      <p>毎日、以下のプロセスを自動実行しています。</p>
+      <ol class="methodology">
+        <li>NHK（4カテゴリ）・Yahoo Japan（3カテゴリ）・BBC（3カテゴリ）の合計10のRSSフィードから、最新ニュースを取得</li>
+        <li>各ニュースの本文を並列スクレイプ（最大3,000字）</li>
+        <li>Polymarketから出来高上位50市場の価格・出来高・期日を取得</li>
+        <li>Claude Codeがニュースと市場をクロス参照し、乖離を分析</li>
+        <li>±10ポイントを超える乖離は「🚩 Gap」として記事化</li>
+        <li>記事をMarkdown形式で執筆し、Astro静的サイトとして公開</li>
+      </ol>
+      <p>すべてのコード・データ・分析プロセスは <a href="https://github.com/Probable-Press/news-prediction-matcher" target="_blank" rel="noopener">GitHub上で公開</a>しています。手作業の編集介入はなく、誰が再現しても同じ手順で同じ結果に到達できます。</p>
+    </section>
+
+    <section>
+      <h2>6. 限界と免責</h2>
+      <ul class="disclaimers">
+        <li><strong>投資助言ではありません</strong> ― 当サイトの分析は教育・情報提供目的であり、特定の市場ポジションを推奨するものではありません。</li>
+        <li><strong>予測市場は完璧ではありません</strong> ― 黒鳥（ブラックスワン）的事象、薄商い市場の不安定性、組織的操作などのリスクがあります。</li>
+        <li><strong>AI分析の誤りの可能性</strong> ― 記事はClaude（AI）が執筆しています。事実誤認や論理の飛躍が含まれる可能性があります。重要な判断には一次ソースを確認してください。</li>
+        <li><strong>ニュース選定のバイアス</strong> ― 取り上げるソースは現状3社10カテゴリに限定されており、すべての視点を網羅していません。</li>
+      </ul>
+    </section>
+
+    <section class="closing">
+      <p><strong>思想ではなく、お金が現実を選別する。</strong><br>その集合知をニュースと並べて読むことで、世界の輪郭が少し違って見えてきます。</p>
+    </section>
+  </div>
+
+  <style>
+    .about-page { max-width: 720px; margin: 0 auto; line-height: 1.85; }
+    .about-header { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .about-header h1 { font-size: 2rem; margin: 0 0 1rem; }
+    .lede { color: var(--muted); font-size: 1.05rem; margin: 0; line-height: 1.7; }
+    .about-page section { margin: 2.5rem 0; }
+    .about-page h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-page h3 { font-size: 1.0rem; margin: 1.5rem 0 0.75rem; }
+    .about-page p { margin: 1rem 0; }
+    .about-page strong { color: #c0392b; font-weight: 700; }
+    .about-page em { font-style: normal; background: #fffbe6; padding: 0 0.2rem; }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table th { background: #fafafa; font-weight: 600; }
+    .comparison-table tr.highlight { background: #fff5f5; }
+    .conditions, .methodology, .disclaimers { padding-left: 1.25rem; }
+    .conditions li, .methodology li, .disclaimers li { margin: 0.6rem 0; }
+    .closing {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fafafa;
+      border-radius: 6px;
+      margin: 3rem 0 1rem;
+    }
+    .closing p { margin: 0; line-height: 1.8; }
+  </style>
+</Base>
