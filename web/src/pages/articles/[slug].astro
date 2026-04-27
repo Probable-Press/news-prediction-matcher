@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const { readdir, readFile } = await import('node:fs/promises');
+  const { resolve } = await import('node:path');
+  const dir = resolve(process.cwd(), '../articles');
+  const files = (await readdir(dir)).filter(f => f.endsWith('.md') && f !== '.gitkeep');
+  return Promise.all(files.map(async (f) => {
+    const slug = f.replace('.md', '');
+    const raw = await readFile(resolve(dir, f), 'utf-8');
+    return { params: { slug }, props: { raw, slug } };
+  }));
+}
+
+const { raw, slug } = Astro.props;
+const html = await marked.parse(raw, { gfm: true });
+const titleMatch = raw.match(/^#\s+(.+)/m);
+const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+const gapMatch = raw.match(/Gap[：:]\s*([^\n|]+)/);
+const title = titleMatch ? titleMatch[1] : slug;
+const date = dateMatch ? dateMatch[1] : '';
+const gap = gapMatch ? gapMatch[1].trim() : '';
+---
+<Base title={title} description={`${date} | ${title} | Probable Press`}>
+  <div class="container article-page">
+    <a href="/" class="back-link">← トップへ</a>
+    <div class="article-header">
+      {date && <span class="article-date">{date}</span>}
+      {gap && <span class="article-gap">{gap}</span>}
+      <h1>{title}</h1>
+    </div>
+    <div class="article-body report-body" set:html={html} />
+  </div>
+</Base>
+
+<style>
+.article-page { max-width: 760px; }
+.article-header { margin: 1.5rem 0 2rem; }
+.article-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.article-gap {
+  display: inline-block;
+  background: #fff0f0;
+  color: #c0392b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+.article-header h1 {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  margin: 0.25rem 0 0;
+}
+.article-body { line-height: 1.8; }
+.article-body p { margin: 1rem 0; }
+.article-body h2 {
+  font-size: 1.1rem;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+</style>

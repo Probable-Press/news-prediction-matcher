@@ -3,54 +3,194 @@ import Base from '../layouts/Base.astro';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const reportsDir = resolve(process.cwd(), '../reports');
-const files = (await readdir(reportsDir))
-  .filter(f => f.endsWith('.md') && f !== '.gitkeep')
-  .sort()
-  .reverse();
+interface ArticleMeta {
+  slug: string;
+  date: string;
+  title: string;
+  lead: string;
+  gap: string;
+  flagged: boolean;
+  category: string;
+}
 
+async function loadArticles(): Promise<ArticleMeta[]> {
+  const dir = resolve(process.cwd(), '../articles');
+  let files: string[] = [];
+  try {
+    files = (await readdir(dir)).filter(f => f.endsWith('.md') && f !== '.gitkeep');
+  } catch { return []; }
+
+  const metas = await Promise.all(files.map(async (f) => {
+    const slug = f.replace('.md', '');
+    const raw = await readFile(resolve(dir, f), 'utf-8');
+    const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+    const titleMatch = raw.match(/^#\s+(.+)/m);
+    const leadMatch = raw.match(/^[^#\n_*].*\S.*$/m);
+    const gapMatch = raw.match(/Gap[：:]\s*\*?\*?([^\n|*]+)\*?\*?/);
+    const catMatch = raw.match(/カテゴリ[：:]\s*([^\n|]+)/);
+    return {
+      slug,
+      date: dateMatch ? dateMatch[1] : '',
+      title: titleMatch ? titleMatch[1].replace(/^#+\s*/, '') : slug,
+      lead: leadMatch ? leadMatch[0].slice(0, 120) : '',
+      gap: gapMatch ? gapMatch[1].trim() : '',
+      flagged: raw.includes('🚩'),
+      category: catMatch ? catMatch[1].trim() : '',
+    };
+  }));
+  return metas.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+// 日次レポート（旧 reports/）も表示
 interface ReportMeta {
   slug: string;
   date: string;
   flagCount: number;
-  marketCount: number;
+}
+async function loadReports(): Promise<ReportMeta[]> {
+  const dir = resolve(process.cwd(), '../reports');
+  let files: string[] = [];
+  try {
+    files = (await readdir(dir)).filter(f => f.endsWith('.md') && f !== '.gitkeep');
+  } catch { return []; }
+  const metas = await Promise.all(files.map(async (f) => {
+    const slug = f.replace('.md', '');
+    const raw = await readFile(resolve(dir, f), 'utf-8');
+    const flagMatch = raw.match(/Flagged gaps.*?:\s*\*\*(\d+)\*\*/);
+    return { slug, date: slug, flagCount: flagMatch ? parseInt(flagMatch[1]) : 0 };
+  }));
+  return metas.sort((a, b) => b.date.localeCompare(a.date));
 }
 
-async function extractMeta(filename: string): Promise<ReportMeta> {
-  const slug = filename.replace('.md', '');
-  const content = await readFile(resolve(reportsDir, filename), 'utf-8');
-  const flagMatch = content.match(/Flagged gaps.*?:\s*\*\*(\d+)\*\*/);
-  const marketMatch = content.match(/Markets analyzed.*?:\s*\*\*(\d+)\*\*/);
-  return {
-    slug,
-    date: slug,
-    flagCount: flagMatch ? parseInt(flagMatch[1]) : 0,
-    marketCount: marketMatch ? parseInt(marketMatch[1]) : 0,
-  };
-}
-
-const reports = await Promise.all(files.map(extractMeta));
+const articles = await loadArticles();
+const reports = await loadReports();
+const hasArticles = articles.length > 0;
 ---
-<Base title="最新レポート">
+<Base title="Probable Press — 予測市場でニュースを読む">
   <div class="container">
-    <h1 style="font-size:1.3rem; margin-bottom:0.25rem;">NHK × Polymarket ギャップ分析</h1>
-    <p style="color:var(--muted); font-size:0.875rem;">予測市場が示す確率とNHKニュースを比較し、ミスプライシングを検出します。</p>
-
-    <div class="report-grid">
-      {reports.map(r => (
-        <a href={`/reports/${r.slug}`} class="report-card">
-          <div>
-            <div class="title">{r.date} のギャップ分析</div>
-            <div class="meta">{r.marketCount} markets analyzed</div>
-          </div>
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
-            <span class="date">{r.date}</span>
-            {r.flagCount > 0 && (
-              <span class="flag-count">🚩 {r.flagCount} flagged</span>
-            )}
-          </div>
-        </a>
-      ))}
+    <div class="site-intro">
+      <h1>Probable Press</h1>
+      <p>予測市場が示す確率とニュースの間の<strong>乖離（ギャップ）</strong>を分析するメディア。<br>市場がまだ織り込んでいない情報を、記事として届けます。</p>
     </div>
+
+    {hasArticles && (
+      <section>
+        <h2 class="section-title">最新記事</h2>
+        <div class="article-feed">
+          {articles.map(a => (
+            <a href={`/articles/${a.slug}`} class="article-card">
+              <div class="article-card-inner">
+                <div class="article-card-meta">
+                  <span class="article-card-date">{a.date}</span>
+                  {a.category && <span class="article-card-cat">{a.category}</span>}
+                  {a.flagged && <span class="article-card-flag">🚩 Gap</span>}
+                </div>
+                <div class="article-card-title">{a.title}</div>
+                {a.lead && <div class="article-card-lead">{a.lead}</div>}
+              </div>
+              {a.gap && <div class="article-card-gap">{a.gap}</div>}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section style={hasArticles ? "margin-top:3rem;" : ""}>
+      <h2 class="section-title">日次分析レポート</h2>
+      <div class="report-grid">
+        {reports.map(r => (
+          <a href={`/reports/${r.slug}`} class="report-card">
+            <div>
+              <div class="title">{r.date} のギャップ分析</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+              <span class="date">{r.date}</span>
+              {r.flagCount > 0 && <span class="flag-count">🚩 {r.flagCount} flagged</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
 </Base>
+
+<style>
+.site-intro {
+  padding: 2rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.site-intro h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+.site-intro p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.article-feed { display: flex; flex-direction: column; gap: 0; }
+.article-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  gap: 1rem;
+  transition: background 0.1s;
+}
+.article-card:hover { background: #fafafa; margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+.article-card-inner { flex: 1; }
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+.article-card-date { font-size: 0.78rem; color: var(--muted); }
+.article-card-cat {
+  font-size: 0.72rem;
+  background: var(--bg-alt, #f0f0f0);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  color: var(--muted);
+}
+.article-card-flag {
+  font-size: 0.72rem;
+  background: #fff0f0;
+  color: #c0392b;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.article-card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+.article-card-lead {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.article-card-gap {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c0392b;
+  white-space: nowrap;
+  padding-top: 0.15rem;
+}
+</style>
