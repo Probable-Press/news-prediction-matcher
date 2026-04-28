@@ -69,14 +69,18 @@ jobs:
         run: |
           python src/fetch_guardian.py 15 > data/guardian-${{ steps.date.outputs.today }}.json
 
+      - name: Purge old data files
+        run: |
+          find data -name "news-*.json"      -mtime +7  -delete
+          find data -name "guardian-*.json"  -mtime +7  -delete
+          find data -name "dune-*.json"      -mtime +14 -delete
+          find data -name "metaculus-*.json" -mtime +30 -delete
+
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/
-          if git diff --cached --quiet; then
-            echo "No changes."
-            exit 0
-          fi
+          git diff --cached --quiet && echo "No changes." && exit 0
           git commit -m "data: fetch ${{ steps.date.outputs.today }}"
           git push
