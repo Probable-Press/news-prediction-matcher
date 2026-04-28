@@ -48,6 +48,13 @@ jobs:
         run: |
           python src/fetch_markets.py 50 > data/markets-${{ steps.date.outputs.today }}.json
 
+      - name: Fetch Dune on-chain large bets
+        env:
+          DUNE_API_KEY: ${{ secrets.DUNE_API_KEY }}
+          DUNE_QUERY_ID: ${{ secrets.DUNE_QUERY_ID }}
+        run: |
+          python src/fetch_dune.py > data/dune-${{ steps.date.outputs.today }}.json
+
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
