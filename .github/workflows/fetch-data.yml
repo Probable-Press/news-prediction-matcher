@@ -55,6 +55,18 @@ jobs:
         run: |
           python src/fetch_dune.py > data/dune-${{ steps.date.outputs.today }}.json
 
+      - name: Fetch Metaculus community predictions
+        env:
+          METACULUS_API_KEY: ${{ secrets.METACULUS_API_KEY }}
+        run: |
+          python src/fetch_metaculus.py 30 > data/metaculus-${{ steps.date.outputs.today }}.json
+
+      - name: Fetch Guardian news
+        env:
+          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
+        run: |
+          python src/fetch_guardian.py 15 > data/guardian-${{ steps.date.outputs.today }}.json
+
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
