@@ -1,6 +1,8 @@
 name: Fetch news + market data
 
 on:
+  schedule:
+    - cron: '0 22 * * *'   # 毎日 UTC 22:00 = JST 07:00
   workflow_dispatch:
     inputs:
       ref:
