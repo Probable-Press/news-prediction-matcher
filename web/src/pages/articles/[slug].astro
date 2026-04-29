@@ -22,8 +22,13 @@ const gapMatch = raw.match(/Gap[：:]\s*([^\n|]+)/);
 const title = titleMatch ? titleMatch[1] : slug;
 const date = dateMatch ? dateMatch[1] : '';
 const gap = gapMatch ? gapMatch[1].trim() : '';
+const descLine = raw
+  .split('\n')
+  .map(s => s.trim())
+  .filter(s => s && !s.startsWith('#') && !s.startsWith('_') && !s.startsWith('|') && !s.startsWith('-') && !s.startsWith('>'))[0] || title;
+const description = descLine.replace(/[*`\[\]()]/g, '').slice(0, 140);
 ---
-<Base title={title} description={`${date} | ${title} | Probable Press`}>
+<Base title={title} description={description}>
   <div class="container article-page">
     <a href="/" class="back-link">← トップへ</a>
     <div class="article-header">
