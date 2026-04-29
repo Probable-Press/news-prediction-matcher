@@ -13,6 +13,7 @@ import sys
 import urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -76,13 +77,22 @@ def _extract_body(soup: BeautifulSoup, url: str) -> str:
                     break
 
     elif "yahoo" in url:
-        # Yahoo Japan: <article> または .article_body
-        article = (
-            soup.find("article")
-            or soup.find(class_=lambda c: c and "article" in c.lower())
+        # Yahoo News articles ページは class に "article_body" を含む
+        # コンテナ (例: "article_body sw-Article_body") を持つ。
+        article_body = soup.find(
+            class_=lambda c: c and "article_body" in c.lower()
         )
-        if article:
-            paragraphs = [p.get_text(strip=True) for p in article.find_all("p")]
+        if article_body:
+            paragraphs = [p.get_text(strip=True)
+                          for p in article_body.find_all("p")]
+        if not paragraphs:
+            article = (
+                soup.find("article")
+                or soup.find(class_=lambda c: c and "article" in c.lower())
+            )
+            if article:
+                paragraphs = [p.get_text(strip=True)
+                              for p in article.find_all("p")]
 
     # 汎用フォールバック
     if not paragraphs:
@@ -97,20 +107,58 @@ def _extract_body(soup: BeautifulSoup, url: str) -> str:
     return text[:MAX_BODY_CHARS]
 
 
+def _fetch_soup(url: str) -> tuple[BeautifulSoup, str]:
+    """URL を取得して soup を返す。最終 URL も返す (リダイレクト追跡用)。"""
+    resp = requests.get(url, headers=HEADERS, timeout=SCRAPE_TIMEOUT,
+                        allow_redirects=True)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.content, "html.parser")
+    for tag in soup(["script", "style", "nav", "header", "footer",
+                      "aside", "noscript", "iframe"]):
+        tag.decompose()
+    return soup, resp.url
+
+
+def _yahoo_pickup_to_article_url(soup: BeautifulSoup, base_url: str) -> str:
+    """Yahoo pickup ページから配信元 (Yahoo articles) ページの URL を抽出。
+
+    優先順位:
+      1. テキストに「記事全文を読む」「全文を読む」「続きを読む」を含む <a>
+      2. /articles/ を含む <a> (最初の1件)
+    """
+    keywords = ("記事全文を読む", "全文を読む", "記事全文", "続きを読む")
+    for a in soup.find_all("a", href=True):
+        if any(k in a.get_text(strip=True) for k in keywords):
+            return urljoin(base_url, a["href"])
+    for a in soup.find_all("a", href=True):
+        if "/articles/" in a["href"]:
+            return urljoin(base_url, a["href"])
+    return ""
+
+
 def scrape_body(url: str) -> str:
-    """URL から記事本文を取得。失敗時は空文字。"""
+    """URL から記事本文を取得。失敗時は空文字。
+
+    Yahoo pickup の場合は pickup → articles の2段階で取得する。
+    """
     if not url:
         return ""
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=SCRAPE_TIMEOUT,
-                            allow_redirects=True)
-        resp.raise_for_status()
-        soup = BeautifulSoup(resp.content, "html.parser")
-        # スクリプト・スタイル・ナビを除去
-        for tag in soup(["script", "style", "nav", "header", "footer",
-                          "aside", "noscript", "iframe"]):
-            tag.decompose()
-        return _extract_body(soup, url)
+        soup, final_url = _fetch_soup(url)
+        # Yahoo pickup ページなら、配信元 articles ページへ進む
+        if "news.yahoo.co.jp/pickup/" in final_url:
+            article_url = _yahoo_pickup_to_article_url(soup, final_url)
+            if article_url:
+                try:
+                    art_soup, art_final_url = _fetch_soup(article_url)
+                    body = _extract_body(art_soup, art_final_url)
+                    if body:
+                        return body
+                except Exception as exc:
+                    print(f"WARN scrape article {article_url}: {exc}",
+                          file=sys.stderr)
+            # フォールバック: pickup ページから抽出
+        return _extract_body(soup, final_url)
     except Exception as exc:
         print(f"WARN scrape {url}: {exc}", file=sys.stderr)
         return ""
