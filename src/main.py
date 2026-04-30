@@ -39,7 +39,7 @@ HEADERS = {
     "Accept-Language": "ja,en;q=0.9",
 }
 SCRAPE_TIMEOUT = 15
-MAX_BODY_CHARS = 3000
+MAX_BODY_CHARS = 10000
 MAX_WORKERS = 8
 
 
