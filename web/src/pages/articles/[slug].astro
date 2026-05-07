@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { marked } from 'marked';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 export async function getStaticPaths() {
   const { readdir, readFile } = await import('node:fs/promises');
@@ -27,8 +29,12 @@ const descLine = raw
   .map(s => s.trim())
   .filter(s => s && !s.startsWith('#') && !s.startsWith('_') && !s.startsWith('|') && !s.startsWith('-') && !s.startsWith('>'))[0] || title;
 const description = descLine.replace(/[*`\[\]()]/g, '').slice(0, 140);
+const eyecatch = `/images/articles/${slug}-eyecatch.svg`;
+const eyecatchExists = existsSync(resolve(process.cwd(), 'public', eyecatch.slice(1)));
+const firstImageMatch = raw.match(/<img[^>]+src=["']([^"']+)["']/i);
+const image = eyecatchExists ? eyecatch : firstImageMatch?.[1];
 ---
-<Base title={title} description={description}>
+<Base title={title} description={description} image={image}>
   <div class="container article-page">
     <a href="/" class="back-link">← トップへ</a>
     <div class="article-header">
