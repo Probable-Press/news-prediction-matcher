@@ -17,8 +17,9 @@ export async function getStaticPaths() {
 }
 
 const { raw, slug } = Astro.props;
-const html = await marked.parse(raw, { gfm: true });
 const titleMatch = raw.match(/^#\s+(.+)/m);
+const bodyMarkdown = raw.replace(/^#\s+.+\r?\n+/, '');
+const html = await marked.parse(bodyMarkdown, { gfm: true });
 const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
 const gapMatch = raw.match(/Gap[：:]\s*([^\n|]+)/);
 const title = titleMatch ? titleMatch[1] : slug;
