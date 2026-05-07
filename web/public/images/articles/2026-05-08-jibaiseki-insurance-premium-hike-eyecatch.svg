@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">自賠責保険料の値上げアイキャッチ</title>
+  <desc id="desc">自賠責保険料の13年ぶり引き上げを示す記事アイキャッチ</desc>
+  <rect width="1200" height="630" fill="#fafaf9"/>
+  <rect x="44" y="44" width="1112" height="542" rx="30" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <rect x="88" y="92" width="252" height="86" rx="18" fill="#fef2f2"/>
+  <text x="214" y="147" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#991b1b">生活コスト</text>
+  <text x="88" y="254" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="58" font-weight="700" fill="#1c1917">自賠責保険料</text>
+  <text x="88" y="326" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="54" font-weight="700" fill="#1c1917">13年ぶり引き上げへ</text>
+  <text x="92" y="390" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="28" fill="#57534e">2026年11月から平均6％余り</text>
+  <text x="92" y="442" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#57534e">車・バイクを持つ人の固定費をどう見るか</text>
+
+  <g transform="translate(780 158)">
+    <circle cx="110" cy="190" r="84" fill="#eef6ff" stroke="#7aa7d9" stroke-width="4"/>
+    <circle cx="240" cy="190" r="84" fill="#fff7ed" stroke="#e6a15a" stroke-width="4"/>
+    <circle cx="138" cy="204" r="28" fill="#1f6fb2"/>
+    <circle cx="236" cy="204" r="28" fill="#1f6fb2"/>
+    <path d="M122 198h140l-28-52h-72l-26 52z" fill="#ffffff" stroke="#1f6fb2" stroke-width="8" stroke-linejoin="round"/>
+    <rect x="190" y="48" width="128" height="102" rx="16" fill="#ffffff" stroke="#b45309" stroke-width="8"/>
+    <path d="M214 82h80M214 116h50" stroke="#b45309" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="318" cy="150" r="40" fill="#fef3c7" stroke="#b45309" stroke-width="8"/>
+    <text x="318" y="164" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#b45309">%</text>
+  </g>
+</svg>

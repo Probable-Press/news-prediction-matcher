@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1300" viewBox="0 0 900 1300" role="img" aria-labelledby="title desc">
+  <title id="title">スマホ向け自賠責保険料引き上げ図解</title>
+  <desc id="desc">自賠責保険料の引き上げが車やバイクを持つ人の固定費にどう関係するかを縦長で示す図解</desc>
+  <rect width="900" height="1300" fill="#fafaf9"/>
+  <rect x="44" y="44" width="812" height="1212" rx="28" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <text x="86" y="128" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="42" font-weight="700" fill="#1c1917">自賠責保険料</text>
+  <text x="86" y="184" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="42" font-weight="700" fill="#1c1917">13年ぶり引き上げへ</text>
+  <text x="88" y="236" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#57534e">2026年11月から平均6％余り</text>
+
+  <g transform="translate(110 310)">
+    <rect width="680" height="190" rx="22" fill="#eef6ff" stroke="#7aa7d9" stroke-width="3"/>
+    <circle cx="126" cy="104" r="25" fill="#1f6fb2"/>
+    <circle cx="236" cy="104" r="25" fill="#1f6fb2"/>
+    <path d="M110 100h150l-30-50h-75l-28 50z" fill="#ffffff" stroke="#1f6fb2" stroke-width="7" stroke-linejoin="round"/>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">車・バイクを持つ</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">通勤、送迎、仕事に使う</text>
+  </g>
+
+  <path d="M450 530v74" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 604l-22-30h44z" fill="#a8a29e"/>
+
+  <g transform="translate(110 635)">
+    <rect width="680" height="190" rx="22" fill="#f0fdf4" stroke="#75b889" stroke-width="3"/>
+    <path d="M176 42l82 32v60c0 52-36 88-82 108-46-20-82-56-82-108V74z" fill="#ffffff" stroke="#15803d" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M136 128l30 30 64-72" fill="none" stroke="#15803d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">自賠責に加入</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">法律で必要な保険</text>
+  </g>
+
+  <path d="M450 855v74" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 929l-22-30h44z" fill="#a8a29e"/>
+
+  <g transform="translate(110 960)">
+    <rect width="680" height="190" rx="22" fill="#fff7ed" stroke="#e6a15a" stroke-width="3"/>
+    <rect x="92" y="44" width="138" height="96" rx="14" fill="#ffffff" stroke="#b45309" stroke-width="7"/>
+    <path d="M118 78h86M118 112h60" stroke="#b45309" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="232" cy="142" r="34" fill="#fef3c7" stroke="#b45309" stroke-width="7"/>
+    <text x="232" y="154" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#b45309">%</text>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">保険料が改定</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">固定費として家計に効く</text>
+  </g>
+
+  <text x="450" y="1210" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#991b1b">確認: 更新時期・車種別の新保険料・総コスト</text>
+</svg>
