@@ -1,59 +1,78 @@
 # Probable Press Article Automation Main
 
-## 目的
+## Goal
 
-Probable Press向けに、最新ニュースと予測関連データを参考にしながら、重複の少ないSEO記事を1〜2本作成する。
+Probable Press向けに、最新データから重複の少ないSEO記事を1〜2本作り、画像・表示確認・commit・draft PR作成まで完了する。
 
-このMDは全体の司令塔です。調査、構成・執筆、読みやすさ確認を分けて実行し、最後にcommitとPR作成まで進めます。
+このMDは司令塔です。細かい文章テンプレに従うより、目的、禁止事項、完成条件を守りながら、記事ごとに自然な構成を選んでください。
 
-## 参照するサブMD
+## Sub-Agent Prompts
 
 - `prompts/article-automation/research.md`
 - `prompts/article-automation/writer.md`
 - `prompts/article-automation/readability_check.md`
 
-## 実行順
+## Must
 
-1. `main` を最新化する
-2. `research.md` に従って `data/` の最新JSONと必要なニュースソースを読む
-3. `articles/` の直近10本を確認し、テーマ・カテゴリ・タイトルの重複を避ける
-4. 直近7記事で同カテゴリが3本以上続かないテーマを選ぶ
-5. `writer.md` に従ってSEO向け記事を1〜2本作成する
-6. 本文内の説明図は、PC用SVGとスマホ用SVGを `web/public/images/articles/` に保存する
-7. 最新記事のアイキャッチは、SVGまたはPNGで必要に応じて作成し、同じディレクトリに保存する
-8. 記事内に `<picture>` でPC/スマホ切り替えを入れる
-9. `readability_check.md` に従って文章、表示、リンク、投資助言リスクを確認する
-10. 可能なら `web` でビルド確認を行う
-11. 変更ファイルだけをcommitし、branchをpushしてdraft PRを作る
-
-## 絶対ルール
-
-- Polymarket/Metaculusは主役にしない
-- 投資助言は禁止
-- 参照リンクはトップページではなく個別URLにする
+- `main` を最新化してから作業する
+- `data/` の最新JSONを読む
+- `articles/` の直近10本を確認し、テーマ・カテゴリ・タイトルの重複を避ける
+- 直近7記事で同カテゴリが3本以上続かないようにする
+- 生活者、企業、学校、自治体など、読者に近い影響を説明する
 - 高校生でも読める文体にする
-- 本文内の説明図はSVGを基本にする
-- PC用SVGとスマホ用SVGを作る
-- アイキャッチや補助ビジュアルではPNG画像生成も使ってよい
-- 記事内は `<picture>` で切り替える
-- タイトル重複を出さない
+- 参照リンクはトップページではなく個別URLにする
+- 本文内の説明図はPC用SVGとスマホ用SVGを作る
+- 記事内の画像切り替えは `<picture>` を使う
+- アイキャッチはSVGまたはPNGで作り、トップ記事カードとOG画像で使えるようにする
 - スマホで横スクロールを出さない
-- 直近記事と同じテーマを安易に繰り返さない
+- 個別記事ページでタイトルを重複表示しない
+- 可能なら `web` でビルド確認する
+- 変更ファイルだけをcommitする
+- branchをpushし、draft PRを作る
 
-## テーマ選定の優先順位
+## Must Not
 
-1. 生活者の行動や家計に関係するニュース
-2. 企業や学校、自治体の実務に影響するニュース
-3. すでに直近記事で多いカテゴリを避けられるニュース
-4. 参照リンクが個別URLで用意できるニュース
-5. 予測市場を補助情報として使えるが、主役にしなくても成立するニュース
+- Polymarket/Metaculusを主役にしない
+- 投資助言にしない
+- 市場価格や予測市場の数字を将来の保証として扱わない
+- 予測市場や株式市場と関係ない記事に、市場セクションを無理に入れない
+- 固定テンプレの見出しを機械的に入れない
+- 事件や事故を過度に煽らない
+- 著作権のあるロゴ、写真、キャラクターを画像に使わない
+- `web/dist/`、`web/node_modules/`、`web/.astro/`、`web/package-lock.json` などの検証生成物をcommitしない
+- unrelatedな既存変更を巻き込まない
 
-## PR本文に入れること
+## Operating Notes
+
+- 記事の保存先: `articles/YYYY-MM-DD-topic-slug.md`
+- 画像の保存先: `web/public/images/articles/`
+- 本文内SVG:
+  - `YYYY-MM-DD-topic-slug.svg`
+  - `YYYY-MM-DD-topic-slug-mobile.svg`
+- アイキャッチ:
+  - `YYYY-MM-DD-topic-slug-eyecatch.svg` または `YYYY-MM-DD-topic-slug-eyecatch.png`
+- PNG画像生成は使ってよい。ただし、本文理解に必要な情報は本文またはSVG図解で補う
+- 同じ日付の記事が複数ある場合も、トップの最新記事表示が不自然にならないか確認する
+
+## Done
+
+- 調査内容からテーマを選んだ理由を説明できる
+- 記事が1〜2本追加されている
+- PC用、スマホ用、アイキャッチ画像が追加されている
+- `<picture>` が記事内に入っている
+- 参考リンクが個別URLになっている
+- 投資助言に見える表現がない
+- スマホ横スクロールがない
+- タイトル重複がない
+- ビルド確認結果をPR本文に書いている
+- draft PRが作成されている
+
+## PR Body Should Include
 
 - 追加した記事テーマ
 - なぜそのテーマを選んだか
 - 直近記事との重複回避
 - 追加した画像
 - 実行した検証
-- 投資助言ではないこと
+- 残る注意点
 
