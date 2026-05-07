@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">ハンタウイルス記事アイキャッチ</title>
+  <desc id="desc">ハンタウイルスとクルーズ船ニュースの読み方を示すアイキャッチ</desc>
+  <rect width="1200" height="630" fill="#fafaf9"/>
+  <rect x="44" y="44" width="1112" height="542" rx="30" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <rect x="88" y="92" width="252" height="86" rx="18" fill="#f0fdf4"/>
+  <text x="214" y="147" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#15803d">公衆衛生</text>
+  <text x="88" y="254" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="58" font-weight="700" fill="#1c1917">ハンタウイルスとは？</text>
+  <text x="88" y="326" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="46" font-weight="700" fill="#1c1917">クルーズ船ニュースの読み方</text>
+  <text x="92" y="390" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="28" fill="#57534e">病気の重さと、広がりやすさを分けて見る</text>
+  <text x="92" y="442" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#57534e">WHO・ECDC・CDCの情報をもとに整理</text>
+
+  <g transform="translate(780 152)">
+    <circle cx="166" cy="168" r="132" fill="#eef6ff" stroke="#7aa7d9" stroke-width="4"/>
+    <circle cx="120" cy="166" r="42" fill="#1f6fb2"/>
+    <ellipse cx="174" cy="174" rx="76" ry="46" fill="#cfe8ff" stroke="#1f6fb2" stroke-width="8"/>
+    <circle cx="205" cy="154" r="7" fill="#1c1917"/>
+    <path d="M248 180c54 8 84 26 96 56" fill="none" stroke="#1f6fb2" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="250" cy="68" r="54" fill="#fef3c7" stroke="#b45309" stroke-width="8"/>
+    <path d="M226 68l18 21 40-50" fill="none" stroke="#b45309" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
