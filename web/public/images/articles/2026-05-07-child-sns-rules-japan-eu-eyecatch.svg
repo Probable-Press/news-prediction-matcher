@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="子どものSNS規制をテーマにした最新記事のアイキャッチ">
+  <rect width="1200" height="630" fill="#f6f8fb"/>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif}.kicker{font-size:30px;font-weight:800;fill:#166b73}.title{font-size:62px;font-weight:900;fill:#10243e}.sub{font-size:29px;font-weight:700;fill:#516170}.label{font-size:25px;font-weight:800;fill:#fff}.small{font-size:22px;font-weight:700;fill:#3a4650}.card{fill:#fff;stroke:#cdd8e5;stroke-width:3}.teal{fill:#166b73}.blue{fill:#2f6fb2}.green{fill:#2f8b68}.yellow{fill:#f3b23f}.purple{fill:#9b5ca8}
+  </style>
+  <text x="78" y="86" class="kicker">Probable Press</text>
+  <text x="78" y="170" class="title">子どものSNS規制は</text>
+  <text x="78" y="244" class="title">どう変わる？</text>
+  <text x="80" y="302" class="sub">日本とEUの共同声明から見る</text>
+  <text x="80" y="344" class="sub">家庭・学校・企業への影響</text>
+
+  <g transform="translate(80,418)">
+    <rect width="188" height="62" rx="31" class="teal"/>
+    <text x="94" y="40" text-anchor="middle" class="label">家庭</text>
+    <rect x="212" width="188" height="62" rx="31" class="green"/>
+    <text x="306" y="40" text-anchor="middle" class="label">学校</text>
+    <rect x="424" width="188" height="62" rx="31" class="yellow"/>
+    <text x="518" y="40" text-anchor="middle" class="label">企業</text>
+    <rect x="636" width="188" height="62" rx="31" class="purple"/>
+    <text x="730" y="40" text-anchor="middle" class="label">政府</text>
+  </g>
+
+  <g transform="translate(770,96)">
+    <rect width="330" height="420" rx="38" fill="#10243e"/>
+    <rect x="28" y="42" width="274" height="336" rx="26" fill="#fff"/>
+    <circle cx="165" cy="392" r="12" fill="#d9e2ec"/>
+    <circle cx="98" cy="112" r="34" class="blue"/>
+    <circle cx="165" cy="112" r="34" class="green"/>
+    <circle cx="232" cy="112" r="34" class="yellow"/>
+    <rect x="72" y="178" width="186" height="18" rx="9" fill="#d9e2ec"/>
+    <rect x="72" y="222" width="226" height="18" rx="9" fill="#d9e2ec"/>
+    <rect x="72" y="266" width="154" height="18" rx="9" fill="#d9e2ec"/>
+    <path d="M112 337 C138 310 194 310 218 337" fill="none" stroke="#166b73" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="112" cy="337" r="18" class="teal"/>
+    <circle cx="218" cy="337" r="18" class="teal"/>
+  </g>
+
+  <text x="80" y="555" class="small">禁止だけでなく、年齢確認・プライバシー・相談しやすさをセットで見る</text>
+</svg>

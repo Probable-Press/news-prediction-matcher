@@ -2,8 +2,11 @@
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
-const { title, description = '予測市場でニュースを読む — Probable Press' } = Astro.props;
+const { title, description = '予測市場でニュースを読む — Probable Press', image } = Astro.props;
+const siteUrl = Astro.site ?? new URL('https://probable-press.pages.dev');
+const imageUrl = image ? new URL(image, siteUrl).toString() : undefined;
 ---
 <!doctype html>
 <html lang="ja">
@@ -14,6 +17,8 @@ const { title, description = '予測市場でニュースを読む — Probable 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  {imageUrl && <meta property="og:image" content={imageUrl} />}
+  {imageUrl && <meta name="twitter:card" content="summary_large_image" />}
   <title>{title} | Probable Press</title>
   <link rel="stylesheet" href="/styles/global.css" />
 </head>
