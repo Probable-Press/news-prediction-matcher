@@ -47,7 +47,7 @@ async function loadArticles(): Promise<ArticleMeta[]> {
       image,
     };
   }));
-  return metas.sort((a, b) => b.date.localeCompare(a.date));
+  return metas.sort((a, b) => b.date.localeCompare(a.date) || b.slug.localeCompare(a.slug));
 }
 
 // 日次レポート（旧 reports/）も表示
