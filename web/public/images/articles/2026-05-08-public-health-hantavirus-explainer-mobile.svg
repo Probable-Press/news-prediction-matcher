@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1300" viewBox="0 0 900 1300" role="img" aria-labelledby="title desc">
+  <title id="title">スマホ向けハンタウイルス図解</title>
+  <desc id="desc">ハンタウイルスのニュースで感染経路と生活者が見るべき点を縦長で示す図解</desc>
+  <rect width="900" height="1300" fill="#fafaf9"/>
+  <rect x="44" y="44" width="812" height="1212" rx="28" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <text x="86" y="132" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="42" font-weight="700" fill="#1c1917">ハンタウイルス</text>
+  <text x="86" y="188" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="42" font-weight="700" fill="#1c1917">ニュースの読み方</text>
+  <text x="88" y="238" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#57534e">広がり方と接触歴を分けて見る</text>
+
+  <g transform="translate(110 310)">
+    <rect width="680" height="190" rx="22" fill="#eef6ff" stroke="#7aa7d9" stroke-width="3"/>
+    <circle cx="132" cy="104" r="36" fill="#1f6fb2"/>
+    <ellipse cx="178" cy="110" rx="58" ry="36" fill="#cfe8ff" stroke="#1f6fb2" stroke-width="7"/>
+    <circle cx="200" cy="96" r="6" fill="#1c1917"/>
+    <path d="M230 116c34 4 56 18 64 40" fill="none" stroke="#1f6fb2" stroke-width="8" stroke-linecap="round"/>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">主な入口</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">げっ歯類の尿・ふん・唾液</text>
+  </g>
+
+  <path d="M450 530v74" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 604l-22-30h44z" fill="#a8a29e"/>
+
+  <g transform="translate(110 635)">
+    <rect width="680" height="190" rx="22" fill="#f0fdf4" stroke="#75b889" stroke-width="3"/>
+    <circle cx="138" cy="100" r="42" fill="#dcfce7" stroke="#15803d" stroke-width="7"/>
+    <circle cx="226" cy="100" r="42" fill="#dcfce7" stroke="#15803d" stroke-width="7"/>
+    <path d="M168 100h30" stroke="#15803d" stroke-width="8" stroke-linecap="round"/>
+    <path d="M184 84l28 16-28 16" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">例外に注意</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">アンデス型は濃厚接触で限定的</text>
+  </g>
+
+  <path d="M450 855v74" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 929l-22-30h44z" fill="#a8a29e"/>
+
+  <g transform="translate(110 960)">
+    <rect width="680" height="190" rx="22" fill="#fff7ed" stroke="#e6a15a" stroke-width="3"/>
+    <circle cx="180" cy="98" r="48" fill="#fef3c7" stroke="#b45309" stroke-width="7"/>
+    <path d="M160 98l15 18 36-44" fill="none" stroke="#b45309" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="344" y="82" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="31" font-weight="700" fill="#1c1917">見るポイント</text>
+    <text x="344" y="126" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">接触歴と公的機関の発表</text>
+  </g>
+
+  <text x="450" y="1210" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#991b1b">病気の重さと広がりやすさを分ける</text>
+</svg>
