@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1400" viewBox="0 0 900 1400" role="img" aria-labelledby="title desc">
+  <title id="title">食料品の消費税減税の影響</title>
+  <desc id="desc">食料品の消費税減税が家計、外食店、生産者、事業者の準備に影響する流れを縦型で示す図解</desc>
+  <rect width="900" height="1400" fill="#fafaf9"/>
+  <rect x="42" y="42" width="816" height="1316" rx="24" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <text x="84" y="128" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="44" font-weight="700" fill="#1c1917">食料品の減税で</text>
+  <text x="84" y="184" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="44" font-weight="700" fill="#1c1917">何が動く？</text>
+  <text x="88" y="238" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">レシートの先にある影響を整理。</text>
+
+  <g transform="translate(100 320)">
+    <rect width="700" height="150" rx="18" fill="#ecfdf5" stroke="#86efac" stroke-width="3"/>
+    <text x="52" y="62" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#14532d">家計</text>
+    <text x="52" y="108" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">毎日の食費がレシートに出る</text>
+  </g>
+  <path d="M450 492v58" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 562l-24-32h48z" fill="#a8a29e"/>
+
+  <g transform="translate(100 580)">
+    <rect width="700" height="150" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+    <text x="52" y="62" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#1e3a8a">外食店</text>
+    <text x="52" y="108" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">税率差が客足に影響する可能性</text>
+  </g>
+  <path d="M450 752v58" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 822l-24-32h48z" fill="#a8a29e"/>
+
+  <g transform="translate(100 840)">
+    <rect width="700" height="150" rx="18" fill="#fff7ed" stroke="#fdba74" stroke-width="3"/>
+    <text x="52" y="62" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#9a3412">農家・漁業者</text>
+    <text x="52" y="108" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">手取りや仕入れとのバランス</text>
+  </g>
+  <path d="M450 1012v58" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M450 1082l-24-32h48z" fill="#a8a29e"/>
+
+  <g transform="translate(100 1100)">
+    <rect width="700" height="172" rx="18" fill="#fefce8" stroke="#fde68a" stroke-width="3"/>
+    <text x="52" y="64" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#713f12">確認ポイント</text>
+    <text x="52" y="112" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">税率・開始時期・対象品目</text>
+    <text x="52" y="148" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">支援策をセットで見る</text>
+  </g>
+</svg>

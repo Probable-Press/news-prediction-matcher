@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">食料品の消費税減税の影響</title>
+  <desc id="desc">食料品の消費税減税が家計、外食店、生産者、事業者の準備に影響する流れを示す図解</desc>
+  <rect width="1600" height="900" fill="#fafaf9"/>
+  <rect x="64" y="64" width="1472" height="772" rx="24" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <text x="112" y="142" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="52" font-weight="700" fill="#1c1917">食料品の消費税減税で何が動く？</text>
+  <text x="116" y="200" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="27" fill="#57534e">家計のレシートだけでなく、外食・生産者・店の準備にも影響する。</text>
+
+  <g transform="translate(120 288)">
+    <rect width="250" height="210" rx="18" fill="#ecfdf5" stroke="#86efac" stroke-width="3"/>
+    <text x="125" y="68" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#14532d">家計</text>
+    <text x="125" y="120" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#166534">毎日の食費</text>
+    <text x="125" y="160" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">レシートで実感</text>
+  </g>
+
+  <g transform="translate(420 288)">
+    <rect width="250" height="210" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+    <text x="125" y="68" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#1e3a8a">外食店</text>
+    <text x="125" y="120" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#1d4ed8">税率差</text>
+    <text x="125" y="160" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">客足への影響</text>
+  </g>
+
+  <g transform="translate(720 288)">
+    <rect width="250" height="210" rx="18" fill="#fff7ed" stroke="#fdba74" stroke-width="3"/>
+    <text x="125" y="68" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#9a3412">生産者</text>
+    <text x="125" y="120" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#c2410c">手取り</text>
+    <text x="125" y="160" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">仕入れとの差</text>
+  </g>
+
+  <g transform="translate(1020 288)">
+    <rect width="250" height="210" rx="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="3"/>
+    <text x="125" y="68" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#4c1d95">事業者</text>
+    <text x="125" y="120" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#6d28d9">レジ更新</text>
+    <text x="125" y="160" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="23" fill="#57534e">請求書・値札</text>
+  </g>
+
+  <path d="M1350 388c0 106-86 192-192 192H280" fill="none" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M280 580l32-22v44z" fill="#a8a29e"/>
+
+  <g transform="translate(214 600)">
+    <rect width="1170" height="110" rx="18" fill="#fefce8" stroke="#fde68a" stroke-width="3"/>
+    <text x="585" y="44" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="30" font-weight="700" fill="#713f12">見るべきポイント</text>
+    <text x="585" y="82" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="25" fill="#57534e">税率・開始時期・対象品目・支援策をセットで確認</text>
+  </g>
+</svg>
