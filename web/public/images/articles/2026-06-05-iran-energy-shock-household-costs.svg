@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">中東情勢と家計コストの波及</title>
+  <desc id="desc">中東情勢の混乱がエネルギー価格、物流、食品、金利、家計へ波及する流れを示す図解</desc>
+  <rect width="1600" height="900" fill="#fafaf9"/>
+  <rect x="64" y="64" width="1472" height="772" rx="28" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <text x="112" y="146" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="54" font-weight="700" fill="#1c1917">中東情勢はどう家計に届く？</text>
+  <text x="116" y="204" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="28" fill="#57534e">エネルギー価格から、物流・食品・金利へ。遠いニュースが生活費に変わる流れ。</text>
+
+  <g transform="translate(110 296)">
+    <rect width="280" height="250" rx="20" fill="#fff7ed" stroke="#e6a15a" stroke-width="3"/>
+    <path d="M140 50c38 48 58 82 58 118a58 58 0 1 1-116 0c0-36 20-70 58-118z" fill="#f97316" stroke="#b45309" stroke-width="8"/>
+    <text x="140" y="202" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="29" font-weight="700" fill="#1c1917">エネルギー</text>
+    <text x="140" y="236" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="20" fill="#57534e">原油・ガス・燃料</text>
+  </g>
+
+  <path d="M420 421h100" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M520 421l-28-20v40z" fill="#a8a29e"/>
+
+  <g transform="translate(550 296)">
+    <rect width="280" height="250" rx="20" fill="#eef6ff" stroke="#7aa7d9" stroke-width="3"/>
+    <rect x="68" y="78" width="150" height="86" rx="12" fill="#ffffff" stroke="#1f6fb2" stroke-width="8"/>
+    <circle cx="100" cy="174" r="20" fill="#1f6fb2"/>
+    <circle cx="190" cy="174" r="20" fill="#1f6fb2"/>
+    <path d="M218 108h34l24 42v14h-58z" fill="#cfe8ff" stroke="#1f6fb2" stroke-width="8" stroke-linejoin="round"/>
+    <text x="140" y="214" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="29" font-weight="700" fill="#1c1917">物流</text>
+    <text x="140" y="240" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="20" fill="#57534e">送料・包装・輸送</text>
+  </g>
+
+  <path d="M860 421h100" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M960 421l-28-20v40z" fill="#a8a29e"/>
+
+  <g transform="translate(990 296)">
+    <rect width="280" height="250" rx="20" fill="#f0fdf4" stroke="#75b889" stroke-width="3"/>
+    <circle cx="112" cy="108" r="42" fill="#dcfce7" stroke="#15803d" stroke-width="8"/>
+    <path d="M112 66v84M70 108h84" stroke="#15803d" stroke-width="10" stroke-linecap="round"/>
+    <rect x="154" y="74" width="62" height="112" rx="12" fill="#ffffff" stroke="#15803d" stroke-width="8"/>
+    <path d="M168 104h34M168 132h34M168 160h24" stroke="#15803d" stroke-width="6" stroke-linecap="round"/>
+    <text x="140" y="214" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="29" font-weight="700" fill="#1c1917">食品・日用品</text>
+    <text x="140" y="240" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="20" fill="#57534e">価格に時間差で波及</text>
+  </g>
+
+  <path d="M1300 421h58" stroke="#a8a29e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1358 421l-28-20v40z" fill="#a8a29e"/>
+
+  <g transform="translate(1380 296)">
+    <rect width="150" height="250" rx="20" fill="#fef2f2" stroke="#fecaca" stroke-width="3"/>
+    <text x="75" y="106" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="54" font-weight="700" fill="#991b1b">¥</text>
+    <text x="75" y="174" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="28" font-weight="700" fill="#1c1917">家計</text>
+    <text x="75" y="214" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="19" fill="#57534e">買い物</text>
+    <text x="75" y="238" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="19" fill="#57534e">光熱費</text>
+  </g>
+
+  <g transform="translate(210 640)">
+    <rect width="1180" height="118" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+    <text x="52" y="50" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="30" font-weight="700" fill="#334155">見るポイント</text>
+    <text x="52" y="90" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#1c1917">短期で収まるか / 物流費が上がるか / 企業がいつ値上げするか</text>
+  </g>
+</svg>
