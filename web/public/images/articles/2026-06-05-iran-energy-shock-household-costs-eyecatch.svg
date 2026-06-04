@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">中東情勢と物価アイキャッチ</title>
+  <desc id="desc">中東情勢によるエネルギーショックが物価と家計に与える影響を示すアイキャッチ</desc>
+  <rect width="1200" height="630" fill="#fafaf9"/>
+  <rect x="44" y="44" width="1112" height="542" rx="30" fill="#ffffff" stroke="#e7e5e4" stroke-width="3"/>
+  <rect x="88" y="92" width="252" height="86" rx="18" fill="#fff7ed"/>
+  <text x="214" y="147" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#b45309">国際経済</text>
+  <text x="88" y="254" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="56" font-weight="700" fill="#1c1917">中東情勢で</text>
+  <text x="88" y="326" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="56" font-weight="700" fill="#1c1917">物価はまた上がる？</text>
+  <text x="92" y="390" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="28" fill="#57534e">OECD見通しと予測市場から見る家計への影響</text>
+  <text x="92" y="442" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="24" fill="#57534e">燃料、送料、食品、金利の流れを整理</text>
+
+  <g transform="translate(792 154)">
+    <circle cx="150" cy="170" r="132" fill="#fff7ed" stroke="#e6a15a" stroke-width="4"/>
+    <path d="M150 70c48 60 72 100 72 146a72 72 0 1 1-144 0c0-46 24-86 72-146z" fill="#f97316" stroke="#b45309" stroke-width="9"/>
+    <circle cx="256" cy="96" r="52" fill="#fef2f2" stroke="#fecaca" stroke-width="7"/>
+    <text x="256" y="114" text-anchor="middle" font-family="Yu Gothic, Hiragino Sans, Arial, sans-serif" font-size="54" font-weight="700" fill="#991b1b">¥</text>
+  </g>
+</svg>
