@@ -1,0 +1,9 @@
+[
+  {
+    "block_time": "2026-05-14 00:29:13.000 UTC",
+    "wallet": "0x2f083494...",
+    "usdc_amount": 1000000000.0,
+    "tx_hash": "0xa72d31a80a7b30724deb0085655e82fcdeefabc93f1c5ff66f60ae5de6efe302",
+    "dune_url": "https://dune.com/queries/7393556"
+  }
+]
