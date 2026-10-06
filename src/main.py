@@ -10,12 +10,11 @@ from __future__ import annotations
 
 import json
 import sys
-import urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urljoin
 
-import requests
+from safe_fetch import fetch_bytes, MAX_ARTICLE_BYTES, MAX_FEED_BYTES
 from bs4 import BeautifulSoup
 
 NEWS_FEEDS: dict[str, str] = {
@@ -26,9 +25,9 @@ NEWS_FEEDS: dict[str, str] = {
     "Yahoo主要":    "https://news.yahoo.co.jp/rss/topics/top-picks.xml",
     "Yahoo国際":    "https://news.yahoo.co.jp/rss/topics/world.xml",
     "Yahoo経済":    "https://news.yahoo.co.jp/rss/topics/business.xml",
-    "BBC World":    "http://feeds.bbci.co.uk/news/world/rss.xml",
-    "BBC Business": "http://feeds.bbci.co.uk/news/business/rss.xml",
-    "BBC Politics": "http://feeds.bbci.co.uk/news/politics/rss.xml",
+    "BBC World":    "https://feeds.bbci.co.uk/news/world/rss.xml",
+    "BBC Business": "https://feeds.bbci.co.uk/news/business/rss.xml",
+    "BBC Politics": "https://feeds.bbci.co.uk/news/politics/rss.xml",
 }
 
 HEADERS = {
@@ -38,7 +37,6 @@ HEADERS = {
     ),
     "Accept-Language": "ja,en;q=0.9",
 }
-SCRAPE_TIMEOUT = 15
 MAX_BODY_CHARS = 10000
 MAX_WORKERS = 8
 
@@ -109,14 +107,12 @@ def _extract_body(soup: BeautifulSoup, url: str) -> str:
 
 def _fetch_soup(url: str) -> tuple[BeautifulSoup, str]:
     """URL を取得して soup を返す。最終 URL も返す (リダイレクト追跡用)。"""
-    resp = requests.get(url, headers=HEADERS, timeout=SCRAPE_TIMEOUT,
-                        allow_redirects=True)
-    resp.raise_for_status()
-    soup = BeautifulSoup(resp.content, "html.parser")
+    content, final_url = fetch_bytes(url, headers=HEADERS, max_bytes=MAX_ARTICLE_BYTES)
+    soup = BeautifulSoup(content, "html.parser")
     for tag in soup(["script", "style", "nav", "header", "footer",
                       "aside", "noscript", "iframe"]):
         tag.decompose()
-    return soup, resp.url
+    return soup, final_url
 
 
 def _yahoo_pickup_to_article_url(soup: BeautifulSoup, base_url: str) -> str:
@@ -169,9 +165,8 @@ def fetch(limit: int = 5) -> list[dict]:
     items: list[dict] = []
     for category, feed_url in NEWS_FEEDS.items():
         try:
-            req = urllib.request.Request(feed_url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                root = ET.fromstring(resp.read())
+            content, _ = fetch_bytes(feed_url, headers=HEADERS, max_bytes=MAX_FEED_BYTES)
+            root = ET.fromstring(content)
         except Exception as exc:
             print(f"WARN: {category} ({feed_url}): {exc}", file=sys.stderr)
             continue
@@ -204,3 +199,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

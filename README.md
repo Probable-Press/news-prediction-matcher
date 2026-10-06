@@ -202,3 +202,37 @@ LLM 分析を CI で自動化すると、以下のリスクが生じます：
 - ℹ️ [About ページ](https://news-prediction-matcher.pages.dev/about)
 - 📊 [Polymarket](https://polymarket.com)
 - 📰 ニュースソース: [NHK](https://news.web.nhk/newsweb) / [Yahoo Japan](https://news.yahoo.co.jp) / [BBC](https://www.bbc.com/news)
+
+
+## RSS / 記事取得の安全境界
+
+`src/main.py` の取得は HTTPS のみ。BBC RSS も HTTPS を使用する。
+許可先は完全一致の `news.web.nhk` / `www3.nhk.or.jp`、
+`news.yahoo.co.jp`、`feeds.bbci.co.uk` / `www.bbc.co.uk` / `www.bbc.com`。
+リダイレクトは同じ配信元グループ内で最大5回とし、各段で URL と DNS を再検証する。
+保存済み `data/news-2026-08-10.json` の記事ホスト（NHK / Yahoo / BBC UK）を維持し、
+BBC UK → BBC.com と旧NHK → news.web.nhk の公式ホスト間移動を許容する。
+新しい配信先はワイルドカードで許可せず、公式情報と実際の配信を確認して追加する。
+
+- DNS の全回答が公開 unicast IP であることを確認し、その数値 IP に直接接続する。
+  接続時の再DNS解決は行わず、TLSの証明書・hostname検証とSNIには元のホスト名を使う。
+  private / loopback / link-local / multicast / 予約済みアドレスやIPv6移行アドレスを拒否する。
+- 環境変数の HTTP(S) proxy、認証情報、Cookie は使用しない。HTTPS downgrade、
+  userinfo、443以外のport、配信元をまたぐredirectを拒否する。
+- RSSは2MiB、記事は4MiBまでをストリームで読み、Content-Lengthの有無だけに依存しない。
+  圧縮応答による展開負荷を避けるためidentity encodingを要求し、圧縮された応答は拒否する。
+- connect/TLSは最大5秒、socket readは最大10秒、redirectとbody readには協調的な
+  30秒deadlineを設ける。OSのDNS解決とHTTPヘッダ・chunk trailer解析には厳密な全体deadline保証がないため、
+  Actionsのjob timeoutも維持する。これらを超えて全面的に無制限取得を許可しない。
+- 新ホスト、圧縮強制、サイズ超過等は取得失敗になる。RSS失敗はそのsourceをskipし、
+  記事失敗は既存の空body（Yahooはpickup本文へのfallback）になる。
+  取得した内容自体の真実性やMarkdownのHTML安全性を保証するものではない。
+
+ネットワークアクセスなしの検証:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+テストはDNS・socket・HTTP応答をmockし、実際の公開/内部IPには接続しない。
+本番collectorやworkflowを起動する必要はない。
