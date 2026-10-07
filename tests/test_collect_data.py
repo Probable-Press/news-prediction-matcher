@@ -59,7 +59,7 @@ class CollectionTests(unittest.TestCase):
     def read(self, source):
         return (self.root / "data" / f"{source}-{TODAY}.json").read_bytes()
 
-    def fail(self, source, status=500):
+    def fail_source(self, source, status=500):
         self.write_script(source, f'''import sys
 print('[{{"partial":', end='')
 print("requests.exceptions.HTTPError: {status} Client Error: error for url: https://example.test/?api-key={SECRET}", file=sys.stderr)
@@ -75,7 +75,7 @@ sys.exit(1)''')
         self.git("add", "data")
         self.git("commit", "-qm", "older Guardian snapshot")
         before = self.read("guardian")
-        self.fail("guardian", 401)
+        self.fail_source("guardian", 401)
         unrelated = self.root / "data/unrelated.json"
         unrelated.write_text("broken")
         report = self.collect()
@@ -94,7 +94,7 @@ sys.exit(1)''')
         self.assertNotIn(SECRET, output.getvalue())
 
     def test_first_collector_failure_does_not_block_later_sources(self):
-        self.fail("news")
+        self.fail_source("news")
         report = self.collect()
         self.assertEqual(report["sources"]["news"]["status"], "failed")
         self.assertEqual(report["sources"]["guardian"]["status"], "success")
@@ -102,7 +102,7 @@ sys.exit(1)''')
     def test_all_failed_leaves_data_unchanged_and_index_empty(self):
         before = {source: self.read(source) for source in FIXTURES}
         for source in FIXTURES:
-            self.fail(source)
+            self.fail_source(source)
         report = self.collect()
         cd.stage(report, self.root)
         self.assertEqual(self.git("diff", "--cached", "--name-only"), "")
@@ -132,7 +132,7 @@ sys.exit(1)''')
                 self.assertEqual(self.read("guardian"), before)
 
     def test_failed_new_day_creates_no_snapshot(self):
-        self.fail("guardian", 401)
+        self.fail_source("guardian", 401)
         report = cd.collect("2026-10-08", self.manifest, self.root)
         self.assertFalse((self.root / "data/guardian-2026-10-08.json").exists())
         self.assertEqual(report["sources"]["guardian"]["changed"], [])
@@ -217,7 +217,7 @@ sys.exit(1)''')
         self.assertNotIn(SECRET, self.manifest.read_text())
 
     def test_workflow_commit_and_final_failure_using_real_shell(self):
-        self.fail("guardian", 401)
+        self.fail_source("guardian", 401)
         # Execute the repository workflow's actual Commit data shell locally,
         # with only git push pointed at a local bare fixture repository.
         workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/fetch-data.yml").read_text()
