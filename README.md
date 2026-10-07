@@ -234,5 +234,8 @@ BBC UK → BBC.com と旧NHK → news.web.nhk の公式ホスト間移動を許�
 python -m unittest discover -s tests -v
 ```
 
-テストはDNS・socket・HTTP応答をmockし、実際の公開/内部IPには接続しない。
+安全境界のテストはDNS・socket・HTTP応答をmockする。
+応答の寿命の回帰テストはローカルのUnix socketpairと実際のHTTP parserを使い、
+Content-Length分の読み取りでsocketが閉じる場合、空応答、chunked、EOF、
+途中切断、サイズ上限とtimeoutを検証する。公開/内部IPには接続しない。
 本番collectorやworkflowを起動する必要はない。

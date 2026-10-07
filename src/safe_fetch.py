@@ -129,15 +129,23 @@ def fetch_bytes(url, *, max_bytes, headers=None):
                 if length is not None and (not length.isdecimal() or int(length) > max_bytes):
                     raise FetchRejected("Invalid or oversized Content-Length")
                 body = bytearray()
-                while True:
+                # A fixed-length read1() can close the response file (and the
+                # last socket reference) while returning the final bytes.
+                # Check response ownership before touching the saved socket.
+                while not response.isclosed():
                     transport.settimeout(_remaining(deadline, READ_TIMEOUT))
                     chunk = response.read1(min(65536, max_bytes + 1 - len(body)))
                     _remaining(deadline, READ_TIMEOUT)
                     if not chunk:
-                        return bytes(body), url
+                        break
                     body.extend(chunk)
                     if len(body) > max_bytes:
                         raise FetchRejected("Response exceeds byte limit")
+                # read1() does not raise IncompleteRead on early EOF for a
+                # fixed-length body. Never return that truncated body as news.
+                if response.length not in (None, 0):
+                    raise FetchRejected("Incomplete response body")
+                return bytes(body), url
         finally:
             conn.close()
     raise FetchRejected("Too many redirects")

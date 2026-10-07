@@ -21,12 +21,19 @@ class Response:
         self.status = status
         self.headers = headers or {}
         self.closed = False
+        self.length = int(self.headers["Content-Length"]) if "Content-Length" in self.headers else None
 
     def getheader(self, name, default=None):
         return self.headers.get(name, default)
 
     def read1(self, size):
-        return self.body.read(size)
+        chunk = self.body.read(size)
+        if self.length is not None:
+            self.length -= len(chunk)
+        return chunk
+
+    def isclosed(self):
+        return self.closed
 
     def __enter__(self):
         return self
