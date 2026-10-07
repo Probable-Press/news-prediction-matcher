@@ -9,6 +9,7 @@ import argparse
 from datetime import date
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -18,6 +19,9 @@ import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+# The workflow starts this budget before checkout/setup, leaving roughly three
+# minutes of its unchanged ten-minute job for validation, commit/push and report.
+COLLECTION_BUDGET_SECONDS = 420
 # script, arguments, required configuration, timeout, existing retention days
 SOURCES = {
     "news": ("main.py", ["5"], (), 240, 7),
@@ -62,7 +66,8 @@ def validate(source: str, content: bytes) -> list[dict]:
     return rows
 
 
-def collect_source(source: str, today: str, root: Path, *, config=None) -> dict:
+def collect_source(source: str, today: str, root: Path, *, config=None,
+                   deadline: float | None = None) -> dict:
     script, args, required, timeout, retention = config or SOURCES[source]
     result = {"status": "failed", "reason": "collector failed", "changed": []}
     missing = [key for key in required if not os.environ.get(key)]
@@ -76,12 +81,18 @@ def collect_source(source: str, today: str, root: Path, *, config=None) -> dict:
     env = {key: value for key, value in os.environ.items()
            if key not in keys or key in required}
     with tempfile.TemporaryFile() as output, tempfile.TemporaryFile() as errors:
+        remaining = deadline - time.monotonic() if deadline is not None else timeout
+        if remaining <= 0:
+            return {**result, "status": "skipped", "reason": "collection budget exhausted"}
+        effective_timeout = min(timeout, remaining)
         try:
             process = subprocess.run([sys.executable, str(root / "src" / script), *args],
-                                     stdout=output, stderr=errors, timeout=timeout,
+                                     stdout=output, stderr=errors, timeout=effective_timeout,
                                      cwd=root, env=env, check=False)
         except subprocess.TimeoutExpired:
-            return {**result, "reason": "collector timed out"}
+            reason = ("collection budget exhausted" if effective_timeout < timeout
+                      else "collector timed out")
+            return {**result, "reason": reason}
         except OSError:
             return {**result, "reason": "collector could not start"}
         errors.seek(0)
@@ -126,7 +137,12 @@ def collect_source(source: str, today: str, root: Path, *, config=None) -> dict:
             "reason": reason, "count": len(rows), "changed": changed}
 
 
-def collect(today: str, manifest: Path, root: Path = ROOT) -> dict:
+def collect(today: str, manifest: Path, root: Path = ROOT, *,
+            deadline: float | None = None) -> dict:
+    if deadline is not None and not math.isfinite(deadline):
+        raise ValueError("Invalid collection deadline")
+    local_deadline = time.monotonic() + COLLECTION_BUDGET_SECONDS
+    deadline = min(deadline, local_deadline) if deadline is not None else local_deadline
     today = date.fromisoformat(today).isoformat()
     report = {"date": today, "sources": {
         source: {"status": "pending", "reason": "not completed", "changed": []}
@@ -136,7 +152,11 @@ def collect(today: str, manifest: Path, root: Path = ROOT) -> dict:
     save()  # Replace any stale manifest before starting.
     for source in SOURCES:
         try:
-            report["sources"][source] = collect_source(source, today, root)
+            if time.monotonic() >= deadline:
+                report["sources"][source] = {
+                    "status": "skipped", "reason": "collection budget exhausted", "changed": []}
+            else:
+                report["sources"][source] = collect_source(source, today, root, deadline=deadline)
         except Exception:
             # This is the source failure boundary, not a success fallback.
             # Include no exception text, and do not stage that source's files.
@@ -199,12 +219,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("collect", "stage", "report"))
     parser.add_argument("--date")
+    parser.add_argument("--deadline", type=float,
+                        help="Absolute monotonic collection deadline from the workflow")
     parser.add_argument("--manifest", type=Path, required=True)
     args = parser.parse_args()
     if args.action == "collect":
         if not args.date:
             parser.error("collect requires --date")
-        report = collect(args.date, args.manifest)
+        report = collect(args.date, args.manifest, deadline=args.deadline)
         # The workflow explicitly continues to stage/commit even on degradation.
         sys.exit(0 if all(r["status"] == "success" for r in report["sources"].values()) else 1)
     report = json.loads(args.manifest.read_text(encoding="utf-8"))
