@@ -239,3 +239,34 @@ python -m unittest discover -s tests -v
 Content-Length分の読み取りでsocketが閉じる場合、空応答、chunked、EOF、
 途中切断、サイズ上限とtimeoutを検証する。公開/内部IPには接続しない。
 本番collectorやworkflowを起動する必要はない。
+
+
+## 取得元ごとの障害分離
+
+`fetch-data.yml` は `src/collect_data.py` で5つのcollectorを個別に実行する。
+Guardian の401などで一つが失敗しても、残りの取得を続け、成功したデータを
+先にコミット・pushする。最後の status step は一部失敗・警告・設定不足があれば
+失敗（赤）になり、Actions summary に取得元別の結果を残す。赤い実行でも
+一部のデータは保存されているため、保存の成否は `Commit data` step で確認する。
+
+- stdout は一時ファイルに取り、終了コード0・JSON配列・各レコードの識別項目を
+  検証してから日次ファイルをatomic replaceする。失敗時は同日・過去日の
+  保存済みデータを変更せず、空ファイルや途中のJSONを公開しない。
+- news / markets / Guardian の空配列は取得失敗扱い。Dune / Metaculus の
+  設定済みcollectorが返した正常な空配列は許容する。設定不足は明示的なskipとし、
+  既存データを空配列で上書きしない。
+- collector が有効なデータとstderrの警告を返した場合は `partial` と表示し、
+  データは保存する。RSSの一部失敗・記事本文のfallbackを全件成功と表示しない。
+- API例外にはキーを含むURLが入る場合があるため、生のstderrはログやmanifestへ
+  転記しない。失敗理由にはHTTP statusなど固定の情報だけを出す。
+- コミット対象はこの実行で検証した変更ファイルだけ。既存のmtimeによる保存期間
+  （news/Guardian 7日、Dune 14日、Metaculus 30日）は、その取得元の新しい
+  正常データがある場合のみ適用し、失敗・skipした取得元は削除しない。
+- subprocessごとの上限はnews 240秒、markets 90秒、Dune 120秒、
+  Metaculus/Guardian 45秒。既存の10分job timeoutと取得安全境界も維持する。
+
+状態manifestは `$RUNNER_TEMP` に置き、公開データには含めない。収集、対象ファイルの
+stage、最終結果の報告を分けているため、部分成功の保存前にエラーで終了しない。
+ネットワーク不要の `python -m unittest discover -s tests -v` で、Guardian 401、
+先頭collectorの失敗、全件失敗、不正/空/途中JSON、タイムアウト、設定不足、
+変更なし、対象限定の実Git commit/push、最後の失敗表示まで検証できる。
