@@ -263,7 +263,12 @@ Guardian の401などで一つが失敗しても、残りの取得を続け、�
   （news/Guardian 7日、Dune 14日、Metaculus 30日）は、その取得元の新しい
   正常データがある場合のみ適用し、失敗・skipした取得元は削除しない。
 - subprocessごとの上限はnews 240秒、markets 90秒、Dune 120秒、
-  Metaculus/Guardian 45秒。既存の10分job timeoutと取得安全境界も維持する。
+  Metaculus/Guardian 45秒。さらにcheckoutより前から全collector共通の7分deadlineを
+  設け、setup・依存installにも同じ時間枠を使う。各subprocessは残り時間との小さい方で
+  打ち切り、時間切れ後の取得元は `collection budget exhausted` としてskipする。
+  既に検証したデータは保存し、未取得元の既存データは保持して、最後にdegradedを報告する。
+  既存の10分job timeoutは延長せず、commit/pushと最終報告に約3分の余裕を残す。
+  通信の安全境界も維持する。
 
 状態manifestは `$RUNNER_TEMP` に置き、公開データには含めない。収集、対象ファイルの
 stage、最終結果の報告を分けているため、部分成功の保存前にエラーで終了しない。

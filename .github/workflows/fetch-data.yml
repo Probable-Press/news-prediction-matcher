@@ -22,6 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Start before setup so slow dependency installation cannot consume the
+      # time reserved for saving partial results. Keep the job cap at 10 min.
+      - name: Start collection budget
+        run: echo "COLLECTION_DEADLINE=$(python3 -c 'import time; print(time.monotonic() + 420)')" >> "$GITHUB_ENV"
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -50,7 +55,7 @@ jobs:
           METACULUS_API_KEY: ${{ secrets.METACULUS_API_KEY }}
           GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
         run: |
-          python src/collect_data.py collect --date "${{ steps.date.outputs.today }}" --manifest "$RUNNER_TEMP/collection-status.json"
+          python src/collect_data.py collect --date "${{ steps.date.outputs.today }}" --deadline "$COLLECTION_DEADLINE" --manifest "$RUNNER_TEMP/collection-status.json"
 
       - name: Commit data
         if: ${{ !cancelled() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure') }}
