@@ -2,5 +2,6 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://probable-press.pages.dev',
+  site: 'https://news-prediction-matcher.pages.dev',
 });
+

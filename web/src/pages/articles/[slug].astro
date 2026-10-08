@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { articleDates, stripUpdatedLine } from '../../lib/article-dates.mjs';
 import { marked } from 'marked';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -18,12 +19,11 @@ export async function getStaticPaths() {
 
 const { raw, slug } = Astro.props;
 const titleMatch = raw.match(/^#\s+(.+)/m);
-const bodyMarkdown = raw.replace(/^#\s+.+\r?\n+/, '');
+const bodyMarkdown = stripUpdatedLine(raw, slug).replace(/^#\s+.+\r?\n+/, '');
 const html = await marked.parse(bodyMarkdown, { gfm: true });
-const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
-const gapMatch = raw.match(/Gap[：:]\s*([^\n|]+)/);
+const { date, updatedDate } = articleDates(raw, slug);
+const gapMatch = raw.match(/Gap[：:]\s*([^\n|_]+)/);
 const title = titleMatch ? titleMatch[1] : slug;
-const date = dateMatch ? dateMatch[1] : '';
 const gap = gapMatch ? gapMatch[1].trim() : '';
 const descLine = raw
   .split('\n')
@@ -39,7 +39,7 @@ const image = eyecatchExists ? eyecatch : firstImageMatch?.[1];
   <div class="container article-page">
     <a href="/" class="back-link">← トップへ</a>
     <div class="article-header">
-      {date && <span class="article-date">{date}</span>}
+      {date && <span class="article-date">{updatedDate ? `更新：${updatedDate} / 公開：${date}` : date}</span>}
       {gap && <span class="article-gap">{gap}</span>}
       <h1>{title}</h1>
     </div>
@@ -80,3 +80,4 @@ const image = eyecatchExists ? eyecatch : firstImageMatch?.[1];
   border-bottom: 1px solid var(--border);
 }
 </style>
+
