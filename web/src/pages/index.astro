@@ -1,11 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import { articleDates, compareArticleDates } from '../lib/article-dates.mjs';
 import { access, readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 interface ArticleMeta {
   slug: string;
   date: string;
+  updatedDate: string;
+  sortDate: string;
   title: string;
   lead: string;
   gap: string;
@@ -24,10 +27,10 @@ async function loadArticles(): Promise<ArticleMeta[]> {
   const metas = await Promise.all(files.map(async (f) => {
     const slug = f.replace('.md', '');
     const raw = await readFile(resolve(dir, f), 'utf-8');
-    const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+    const dates = articleDates(raw, slug);
     const titleMatch = raw.match(/^#\s+(.+)/m);
     const leadMatch = raw.match(/^[^#\n_*].*\S.*$/m);
-    const gapMatch = raw.match(/Gap[：:]\s*\*?\*?([^\n|*]+)\*?\*?/);
+    const gapMatch = raw.match(/Gap[：:]\s*\*?\*?([^\n|*_]+)\*?\*?/);
     const catMatch = raw.match(/カテゴリ[：:]\s*([^\n|]+)/);
     const firstImageMatch = raw.match(/<img[^>]+src=["']([^"']+)["']/i);
     const eyecatch = `/images/articles/${slug}-eyecatch.svg`;
@@ -38,7 +41,7 @@ async function loadArticles(): Promise<ArticleMeta[]> {
     } catch {}
     return {
       slug,
-      date: dateMatch ? dateMatch[1] : '',
+      ...dates,
       title: titleMatch ? titleMatch[1].replace(/^#+\s*/, '') : slug,
       lead: leadMatch ? leadMatch[0].slice(0, 120) : '',
       gap: gapMatch ? gapMatch[1].trim() : '',
@@ -47,7 +50,7 @@ async function loadArticles(): Promise<ArticleMeta[]> {
       image,
     };
   }));
-  return metas.sort((a, b) => b.date.localeCompare(a.date) || b.slug.localeCompare(a.slug));
+  return metas.sort(compareArticleDates);
 }
 
 // 日次レポート（旧 reports/）も表示
@@ -95,7 +98,7 @@ const hasArticles = articles.length > 0;
               )}
               <div class="article-card-inner">
                 <div class="article-card-meta">
-                  <span class="article-card-date">{a.date}</span>
+                  <span class="article-card-date">{a.updatedDate ? `更新：${a.updatedDate} / 公開：${a.date}` : a.date}</span>
                   {a.category && <span class="article-card-cat">{a.category}</span>}
                   {a.flagged && <span class="article-card-flag">🚩 Gap</span>}
                 </div>
@@ -248,3 +251,4 @@ const hasArticles = articles.length > 0;
   }
 }
 </style>
+
