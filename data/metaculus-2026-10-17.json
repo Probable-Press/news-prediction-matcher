@@ -16,6 +16,14 @@
     "close_time": "2026-11-02T13:00:00Z"
   },
   {
+    "id": 45856,
+    "title": "Will the Strait of Hormuz return to normal commercial traffic before December 1, 2026?",
+    "url": "https://www.metaculus.com/questions/45856",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-11-30T22:00:00Z"
+  },
+  {
     "id": 45860,
     "title": "Will Israel withdraw behind the original Yellow Line in Gaza before January 1, 2027?",
     "url": "https://www.metaculus.com/questions/45860",
@@ -38,6 +46,14 @@
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2026-11-30T22:00:00Z"
+  },
+  {
+    "id": 46048,
+    "title": "Will a representative survey in a G20 country find, before 2050, that a majority of adults believe AI has subjective experience?",
+    "url": "https://www.metaculus.com/questions/46048",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2050-12-10T08:00:00Z"
   },
   {
     "id": 45813,
@@ -72,20 +88,28 @@
     "close_time": "2026-12-31T01:00:00Z"
   },
   {
-    "id": 45856,
-    "title": "Will the Strait of Hormuz return to normal commercial traffic before December 1, 2026?",
-    "url": "https://www.metaculus.com/questions/45856",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-11-30T22:00:00Z"
-  },
-  {
     "id": 45810,
     "title": "Will Trump demolish the Kennedy Center before January 1, 2027?",
     "url": "https://www.metaculus.com/questions/45810",
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2026-12-15T22:00:00Z"
+  },
+  {
+    "id": 45387,
+    "title": "Will the ICJ find that Israel committed genocide before 2040?",
+    "url": "https://www.metaculus.com/questions/45387",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2040-01-01T05:00:00Z"
+  },
+  {
+    "id": 40295,
+    "title": "Will Helion deliver ≥50 MW to Microsoft under their fusion PPA before January 1, 2030?",
+    "url": "https://www.metaculus.com/questions/40295",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2029-07-01T00:00:00Z"
   },
   {
     "id": 45876,
@@ -96,12 +120,12 @@
     "close_time": "2026-11-30T22:00:00Z"
   },
   {
-    "id": 18060,
-    "title": "Will there be a Run on the Banks before 2031?",
-    "url": "https://www.metaculus.com/questions/18060",
+    "id": 40554,
+    "title": "Will a frontier AI developer publicly accuse a Russian actor of stealing their model weights before 2030?",
+    "url": "https://www.metaculus.com/questions/40554",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2030-12-31T20:00:00Z"
+    "close_time": "2029-12-01T00:00:00Z"
   },
   {
     "id": 45988,
@@ -110,14 +134,6 @@
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2040-01-01T00:00:00Z"
-  },
-  {
-    "id": 40295,
-    "title": "Will Helion deliver ≥50 MW to Microsoft under their fusion PPA before January 1, 2030?",
-    "url": "https://www.metaculus.com/questions/40295",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2029-07-01T00:00:00Z"
   },
   {
     "id": 45419,
@@ -136,28 +152,12 @@
     "close_time": "2099-12-21T11:00:00Z"
   },
   {
-    "id": 15246,
-    "title": "Will Russia significantly incorporate Belarus into the Union State before 2030?",
-    "url": "https://www.metaculus.com/questions/15246",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2029-12-31T12:00:00Z"
-  },
-  {
     "id": 44163,
     "title": "Will SpaceX make any acquisition valued at more than $100B before 2028?",
     "url": "https://www.metaculus.com/questions/44163",
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2027-12-31T23:59:00Z"
-  },
-  {
-    "id": 45858,
-    "title": "Will Russia detonate a nuclear weapon in Ukraine or Ukrainian-held territory before December 1, 2026?",
-    "url": "https://www.metaculus.com/questions/45858",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-11-30T22:00:00Z"
   },
   {
     "id": 45852,
@@ -168,12 +168,20 @@
     "close_time": "2030-01-01T14:14:00Z"
   },
   {
-    "id": 45851,
-    "title": "Will Russia disable global technology infrastructure including AI before 2050?",
-    "url": "https://www.metaculus.com/questions/45851",
+    "id": 45858,
+    "title": "Will Russia detonate a nuclear weapon in Ukraine or Ukrainian-held territory before December 1, 2026?",
+    "url": "https://www.metaculus.com/questions/45858",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2049-12-31T07:30:00Z"
+    "close_time": "2026-11-30T22:00:00Z"
+  },
+  {
+    "id": 18060,
+    "title": "Will there be a Run on the Banks before 2031?",
+    "url": "https://www.metaculus.com/questions/18060",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2030-12-31T20:00:00Z"
   },
   {
     "id": 35971,
@@ -192,36 +200,28 @@
     "close_time": "2031-01-01T07:59:00Z"
   },
   {
+    "id": 45851,
+    "title": "Will Russia disable global technology infrastructure including AI before 2050?",
+    "url": "https://www.metaculus.com/questions/45851",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2049-12-31T07:30:00Z"
+  },
+  {
+    "id": 10767,
+    "title": "Will Moldova control Transnistria before 2028?",
+    "url": "https://www.metaculus.com/questions/10767",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2027-12-31T21:59:00Z"
+  },
+  {
     "id": 43885,
     "title": "Will Spain hold a general election before May 23, 2027?",
     "url": "https://www.metaculus.com/questions/43885",
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2027-03-29T23:00:00Z"
-  },
-  {
-    "id": 45464,
-    "title": "Will FEWS NET classify any area of Sudan as experiencing Famine before 2027?",
-    "url": "https://www.metaculus.com/questions/45464",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-10-31T23:00:00Z"
-  },
-  {
-    "id": 45230,
-    "title": "Will the United States attack Oman before 2027?",
-    "url": "https://www.metaculus.com/questions/45230",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-11-01T01:00:00Z"
-  },
-  {
-    "id": 45820,
-    "title": "Will Gavin Newsom call a special session of the California Legislature on AI before January 1, 2027?",
-    "url": "https://www.metaculus.com/questions/45820",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2027-01-01T01:52:00Z"
   },
   {
     "id": 30803,
@@ -232,11 +232,11 @@
     "close_time": "2027-12-01T07:59:00Z"
   },
   {
-    "id": 31089,
-    "title": "Will Donald Trump win the Nobel Peace Prize before 2029?",
-    "url": "https://www.metaculus.com/questions/31089",
+    "id": 45820,
+    "title": "Will Gavin Newsom call a special session of the California Legislature on AI before January 1, 2027?",
+    "url": "https://www.metaculus.com/questions/45820",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2028-12-10T04:59:00Z"
+    "close_time": "2027-01-01T01:52:00Z"
   }
 ]
