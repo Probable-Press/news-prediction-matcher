@@ -1,27 +1,11 @@
 [
   {
-    "id": 45859,
-    "title": "Will the United States detonate a nuclear weapon in Iran before December 1, 2026?",
-    "url": "https://www.metaculus.com/questions/45859",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-11-30T22:00:00Z"
-  },
-  {
     "id": 45854,
     "title": "Will the United States resume its air campaign against Iran before December 1, 2026?",
     "url": "https://www.metaculus.com/questions/45854",
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2026-11-30T22:00:00Z"
-  },
-  {
-    "id": 45988,
-    "title": "Will a new Clay Millennium Prize be awarded entirely to individual humans before 2040?",
-    "url": "https://www.metaculus.com/questions/45988",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2040-01-01T00:00:00Z"
   },
   {
     "id": 46048,
@@ -32,12 +16,20 @@
     "close_time": "2050-12-10T08:00:00Z"
   },
   {
-    "id": 40554,
-    "title": "Will a frontier AI developer publicly accuse a Russian actor of stealing their model weights before 2030?",
-    "url": "https://www.metaculus.com/questions/40554",
+    "id": 45982,
+    "title": "Will the Phase 3 LiGeR-HN1 trial of petosemtamab + pembrolizumab in 1L HNSCC meet its primary endpoint before 2028?",
+    "url": "https://www.metaculus.com/questions/45982",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2029-12-01T00:00:00Z"
+    "close_time": "2027-11-30T23:00:00Z"
+  },
+  {
+    "id": 45988,
+    "title": "Will a new Clay Millennium Prize be awarded entirely to individual humans before 2040?",
+    "url": "https://www.metaculus.com/questions/45988",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2040-01-01T00:00:00Z"
   },
   {
     "id": 46050,
@@ -48,36 +40,20 @@
     "close_time": "2029-12-31T07:30:00Z"
   },
   {
-    "id": 45982,
-    "title": "Will the Phase 3 LiGeR-HN1 trial of petosemtamab + pembrolizumab in 1L HNSCC meet its primary endpoint before 2028?",
-    "url": "https://www.metaculus.com/questions/45982",
+    "id": 46083,
+    "title": "Will Viktor Orban return as prime minister before 2031?",
+    "url": "https://www.metaculus.com/questions/46083",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2027-11-30T23:00:00Z"
+    "close_time": "2030-12-31T00:00:00Z"
   },
   {
-    "id": 45856,
-    "title": "Will the Strait of Hormuz return to normal commercial traffic before December 1, 2026?",
-    "url": "https://www.metaculus.com/questions/45856",
+    "id": 45859,
+    "title": "Will the United States detonate a nuclear weapon in Iran before December 1, 2026?",
+    "url": "https://www.metaculus.com/questions/45859",
     "community_prediction": null,
     "num_forecasters": null,
     "close_time": "2026-11-30T22:00:00Z"
-  },
-  {
-    "id": 45860,
-    "title": "Will Israel withdraw behind the original Yellow Line in Gaza before January 1, 2027?",
-    "url": "https://www.metaculus.com/questions/45860",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-12-15T13:00:00Z"
-  },
-  {
-    "id": 46051,
-    "title": "Will the Trump administration or a GOP state governor deploy armed officers or troops to a polling or early voting site in 2026?",
-    "url": "https://www.metaculus.com/questions/46051",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-11-02T13:00:00Z"
   },
   {
     "id": 41490,
@@ -88,12 +64,28 @@
     "close_time": "2026-11-03T12:00:00Z"
   },
   {
-    "id": 44913,
-    "title": "Will Olivia Chow win the 2026 Toronto mayoral election?",
-    "url": "https://www.metaculus.com/questions/44913",
+    "id": 45856,
+    "title": "Will the Strait of Hormuz return to normal commercial traffic before December 1, 2026?",
+    "url": "https://www.metaculus.com/questions/45856",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2026-10-25T23:00:00Z"
+    "close_time": "2026-11-30T22:00:00Z"
+  },
+  {
+    "id": 46051,
+    "title": "Will the Trump administration or a GOP state governor deploy armed officers or troops to a polling or early voting site in 2026?",
+    "url": "https://www.metaculus.com/questions/46051",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-11-02T13:00:00Z"
+  },
+  {
+    "id": 45860,
+    "title": "Will Israel withdraw behind the original Yellow Line in Gaza before January 1, 2027?",
+    "url": "https://www.metaculus.com/questions/45860",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-12-15T13:00:00Z"
   },
   {
     "id": 45855,
@@ -104,12 +96,12 @@
     "close_time": "2026-11-30T22:00:00Z"
   },
   {
-    "id": 45878,
-    "title": "Will online prediction markets cease to exist before 2100?",
-    "url": "https://www.metaculus.com/questions/45878",
+    "id": 5253,
+    "title": "Will Iran possess a nuclear weapon before 2030?",
+    "url": "https://www.metaculus.com/questions/5253",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2099-12-01T00:00:00Z"
+    "close_time": "2030-01-01T17:00:00Z"
   },
   {
     "id": 41883,
@@ -120,6 +112,30 @@
     "close_time": "2026-11-04T04:59:00Z"
   },
   {
+    "id": 9535,
+    "title": "Will the USA be the first country to embryo select >10% of its newborns for intelligence?",
+    "url": "https://www.metaculus.com/questions/9535",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2040-01-01T05:00:00Z"
+  },
+  {
+    "id": 40554,
+    "title": "Will a frontier AI developer publicly accuse a Russian actor of stealing their model weights before 2030?",
+    "url": "https://www.metaculus.com/questions/40554",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2029-12-01T00:00:00Z"
+  },
+  {
+    "id": 45878,
+    "title": "Will online prediction markets cease to exist before 2100?",
+    "url": "https://www.metaculus.com/questions/45878",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2099-12-01T00:00:00Z"
+  },
+  {
     "id": 25523,
     "title": "Will Nigel Farage become Prime Minister of the United Kingdom before January 1, 2035?",
     "url": "https://www.metaculus.com/questions/25523",
@@ -128,52 +144,12 @@
     "close_time": "2034-12-30T12:00:00Z"
   },
   {
-    "id": 45812,
-    "title": "Will ChatGPT-type chatbots disappear before 2100?",
-    "url": "https://www.metaculus.com/questions/45812",
+    "id": 44163,
+    "title": "Will SpaceX make any acquisition valued at more than $100B before 2028?",
+    "url": "https://www.metaculus.com/questions/44163",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2099-12-21T11:00:00Z"
-  },
-  {
-    "id": 45809,
-    "title": "Will the US approve a $10B exchange stabilisation facility for Pakistan before 2027?",
-    "url": "https://www.metaculus.com/questions/45809",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-12-14T19:00:00Z"
-  },
-  {
-    "id": 45987,
-    "title": "Will the 2026 suspected pneumonic plague outbreak in Russia result in 10 fatalities before 2027?",
-    "url": "https://www.metaculus.com/questions/45987",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-12-31T01:00:00Z"
-  },
-  {
-    "id": 45008,
-    "title": "Will a case of Bundibugyo Ebola disease be first confirmed in the US before July 2027?",
-    "url": "https://www.metaculus.com/questions/45008",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2027-06-30T22:59:00Z"
-  },
-  {
-    "id": 43730,
-    "title": "Will US federal agencies cease international arrival processing at any of the following airports for 3 or more consecutive days before 2027?",
-    "url": "https://www.metaculus.com/questions/43730",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2026-12-31T23:59:00Z"
-  },
-  {
-    "id": 15246,
-    "title": "Will Russia significantly incorporate Belarus into the Union State before 2030?",
-    "url": "https://www.metaculus.com/questions/15246",
-    "community_prediction": null,
-    "num_forecasters": null,
-    "close_time": "2029-12-31T12:00:00Z"
+    "close_time": "2027-12-31T23:59:00Z"
   },
   {
     "id": 13449,
@@ -184,20 +160,44 @@
     "close_time": "2028-01-01T04:59:00Z"
   },
   {
-    "id": 45857,
-    "title": "Will José Mourinho still be the manager for Real Madrid on December 31, 2026?",
-    "url": "https://www.metaculus.com/questions/45857",
+    "id": 45812,
+    "title": "Will ChatGPT-type chatbots disappear before 2100?",
+    "url": "https://www.metaculus.com/questions/45812",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2026-12-01T13:00:00Z"
+    "close_time": "2099-12-21T11:00:00Z"
   },
   {
-    "id": 45415,
-    "title": "Will China further tighten its post–November 10, 2026 rare-earth export-control regime?",
-    "url": "https://www.metaculus.com/questions/45415",
+    "id": 45876,
+    "title": "Will Donald Trump and Vladimir Putin meet in person before December 1, 2026?",
+    "url": "https://www.metaculus.com/questions/45876",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2026-11-09T02:59:00Z"
+    "close_time": "2026-11-30T22:00:00Z"
+  },
+  {
+    "id": 45987,
+    "title": "Will the 2026 suspected pneumonic plague outbreak in Russia result in 10 fatalities before 2027?",
+    "url": "https://www.metaculus.com/questions/45987",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-12-31T01:00:00Z"
+  },
+  {
+    "id": 43730,
+    "title": "Will US federal agencies cease international arrival processing at any of the following airports for 3 or more consecutive days before 2027?",
+    "url": "https://www.metaculus.com/questions/43730",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-12-31T23:59:00Z"
+  },
+  {
+    "id": 45809,
+    "title": "Will the US approve a $10B exchange stabilisation facility for Pakistan before 2027?",
+    "url": "https://www.metaculus.com/questions/45809",
+    "community_prediction": null,
+    "num_forecasters": null,
+    "close_time": "2026-12-14T19:00:00Z"
   },
   {
     "id": 19879,
@@ -208,35 +208,35 @@
     "close_time": "2027-12-31T23:59:00Z"
   },
   {
-    "id": 45813,
-    "title": "Will Metaculus exist in 2050?",
-    "url": "https://www.metaculus.com/questions/45813",
+    "id": 45415,
+    "title": "Will China further tighten its post–November 10, 2026 rare-earth export-control regime?",
+    "url": "https://www.metaculus.com/questions/45415",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2049-12-21T23:00:00Z"
+    "close_time": "2026-11-09T02:59:00Z"
   },
   {
-    "id": 5253,
-    "title": "Will Iran possess a nuclear weapon before 2030?",
-    "url": "https://www.metaculus.com/questions/5253",
+    "id": 39136,
+    "title": "Will a cyberattack targeting AI systems cause a significant power blackout in the United States before 2028?",
+    "url": "https://www.metaculus.com/questions/39136",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2030-01-01T17:00:00Z"
+    "close_time": "2028-01-01T04:00:00Z"
   },
   {
-    "id": 45810,
-    "title": "Will Trump demolish the Kennedy Center before January 1, 2027?",
-    "url": "https://www.metaculus.com/questions/45810",
+    "id": 45008,
+    "title": "Will a case of Bundibugyo Ebola disease be first confirmed in the US before July 2027?",
+    "url": "https://www.metaculus.com/questions/45008",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2026-12-15T22:00:00Z"
+    "close_time": "2027-06-30T22:59:00Z"
   },
   {
-    "id": 42744,
-    "title": "Will the United States attack Cuba before 2027?",
-    "url": "https://www.metaculus.com/questions/42744",
+    "id": 11045,
+    "title": "Will a Democrat win the 2028 US presidential election?",
+    "url": "https://www.metaculus.com/questions/11045",
     "community_prediction": null,
     "num_forecasters": null,
-    "close_time": "2026-12-31T23:59:00Z"
+    "close_time": "2026-11-03T04:59:00Z"
   }
 ]
